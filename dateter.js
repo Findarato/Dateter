@@ -34,13 +34,13 @@
 			month:-1,
 			monthsMoved:0,
 			monthStartOn:0,
-			monthSwitchFn:"",
+			monthSwitchFn:"", 
 			
 			name:"",
 			noClick:false,
 
 			pastDayShades:true,
-			
+			position:[], 
 			showDaynames:false,
 			smallDayNames:["S","M","T","W","T","F","S"],
 			startMonth:-1,
@@ -48,8 +48,7 @@
 			startYear:-1,
 			
 			uniqueName:"dateter",
-			
-			width:"500px",
+			width:"500px", 
 			year:-1
 		}
 	};
@@ -94,6 +93,7 @@
 		target.data("Settings").leapYear = Date.isLeapYear (target.data("Settings").year );
 		target.data("Settings").name = target.data("Settings").uniqueName;
 		target.data("Settings").monthName = Date.today().set({month: parseInt(target.data("Settings").month)-1}).toString("MMMM");
+		target.data("Settings").position = target.position();
 
 		if(target.data("Settings").noClick===true){ //used for when you need the selector to always be on the screen
 			if(target.data("Settings").largeDisplay===true){
@@ -120,24 +120,23 @@
 					}
 				}
 			}
-			
 			jQuery.fn.dateter.drawCalendar(target,target.data("Settings"));
 		}else{
 			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
 			jQuery(target).click(function(){
 				jQuery("#"+target.data("Settings").uniqueName).show();
-				jQuery('#button-date-selector').css('z-index',-20);hideme=true;});
-			jQuery('body').append(
-				calBox = jQuery('<div class="OL-fred color-darker/>')
-				.attr({id:+target.data("Settings").uniqueName})
-				.css({padding:"3px", height:target.data("Settings").height,width:target.data("Settings").width})
+				target.css('z-index',-20);hideme=true;});
+			target.parent().append(
+				calBox = jQuery('<div/>')
+				.addClass("OL-fred color-darker")
+				.attr({id:target.data("Settings").uniqueName})
+				.css({position:"absolute",top:target.data("Settings").position.top,left:target.data("Settings").position.left,padding:"3px", height:target.data("Settings").height,width:target.data("Settings").width})
 				.hide());
 			jQuery.fn.dateter.drawCalendar(calBox,target.data("Settings"),target);
-			position = jQuery(target).position();
+			//position = jQuery(target).position();
 			heightAdjust = jQuery(target).height();
 			heightAdjust=0;
-			calBox.css({top:position.top+heightAdjust,left:position.left,position:"absolute"});	
-			alert("!");
+			//calBox.css({top:position.top+heightAdjust,left:position.left,position:"absolute"});	
 		}
 	}
 	jQuery.fn.dateter.moveMonth = function(selector,moveSettings,target,direction){
@@ -277,7 +276,7 @@
 						clickArea.click(function(){
 							if (calHolder.data("Settings").callbackFn) {
 								calHolder.data("Settings").callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
-								if (localSettings.noClick === false) {
+								if (calHolder.data("Settings").noClick === false) {
 									calHolder.fadeOut(300);
 								}
 							}
