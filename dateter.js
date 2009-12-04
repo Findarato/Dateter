@@ -149,6 +149,7 @@
 				calGlobal.append(
 					jQuery("<div/>")
 						.css({position:"relative",bottom:0,left:0,width:"100%",height:"20px",paddingTop:"4px"})
+						.append(jQuery("<span/>").addClass("opposite").html("Please Enter a time : "))
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("12").addClass("dropdown Ticketform"))
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("00").addClass("dropdown Ticketform"))
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("PM").addClass("dropdown Ticketform"))
