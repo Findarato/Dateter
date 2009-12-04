@@ -41,11 +41,14 @@
 
 			pastDayShades:true,
 			position:[], 
+			
 			showDaynames:false,
 			smallDayNames:["S","M","T","W","T","F","S"],
 			startMonth:-1,
 			startofMonth:0,
 			startYear:-1,
+			
+			timeSelector:false,
 			
 			uniqueName:"dateter",
 			width:"500px", 
@@ -69,8 +72,14 @@
 		Settings = jQuery.extend({},jQuery.dateter.settings, options);
 		Settings.callbackFn = custom_callback ? custom_callback : false;
 		Settings.monthSwitchFn = custom_monthSwitch ? custom_monthSwitch : false;
-		Settings.cellHeight=Math.floor((parseInt(Settings.height)-20)/7);
-		Settings.cellWidth=Math.floor((parseInt(Settings.width)-20)/7);
+		if (Settings.timeSelector) {
+			Settings.cellHeight=Math.floor((parseInt(Settings.height)-40)/7);
+			Settings.cellWidth=Math.floor((parseInt(Settings.width)-40)/7);
+		}else{
+			Settings.cellHeight=Math.floor((parseInt(Settings.height)-20)/7);
+			Settings.cellWidth=Math.floor((parseInt(Settings.width)-20)/7);
+		}
+		
 		if (Settings.noClick === true) {
 		}else{target.attr("onBlur","javascript:setTimeout(\'jQuery.fn.hideBox(\"calBox\",300,\""+target.attr("id")+"\")\',200);");}
 		target.data("Settings",Settings);
@@ -124,14 +133,34 @@
 		}else{
 			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
 			jQuery(target).click(function(){
+				jQuery(".dateterPopup").hide();
 				jQuery("#"+target.data("Settings").uniqueName).show();
 				target.css('z-index',-20);hideme=true;});
 			target.parent().append(
-				calBox = jQuery('<div/>')
-				.addClass("OL-fred color-darker")
+				calGlobal = jQuery('<div/>')
+				.addClass("OL-fred color-off dateterPopup")
 				.attr({id:target.data("Settings").uniqueName})
-				.css({position:"absolute",top:target.data("Settings").position.top,left:target.data("Settings").position.left,padding:"3px", height:target.data("Settings").height,width:target.data("Settings").width})
+				.css({position:"absolute",
+				top:target.data("Settings").position.top,
+				left:target.data("Settings").position.left,padding:"3px"})
 				.hide());
+			calGlobal.append(calBox = jQuery('<div/>'));
+			if(target.data("Settings").timeSelector){
+				calGlobal.append(
+					jQuery("<div/>")
+						.css({position:"relative",bottom:0,left:0,width:"100%",height:"20px",paddingTop:"4px"})
+						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("12").addClass("dropdown Ticketform"))
+						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("00").addClass("dropdown Ticketform"))
+						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("PM").addClass("dropdown Ticketform"))
+						/*
+						 * <input type="text" name="newReservationSdate" id="newReservationSdate" class="dropdown Ticketform" maxlength="50" style="width:8em" value="Pick a date" />
+				<input type="text" name="newReservationShour" id="newReservationShour" class="dropdown Ticketform" maxlength="2" style="width:20px" value="12" />
+				<font class="opposite">:</font>
+				<input type="text" name="newReservationSminute" id="newReservationSminute" class="dropdown Ticketform" maxlength="2" style="width:20px" value="00" />
+				<input type="text" name="newReservationSampm" id="newReservationSampm" class="dropdown Ticketform" maxlength="2" style="width:23px" value="PM" />
+						 */
+				);
+			}
 			jQuery.fn.dateter.drawCalendar(calBox,target.data("Settings"),target);
 			//position = jQuery(target).position();
 			heightAdjust = jQuery(target).height();
@@ -277,7 +306,7 @@
 							if (calHolder.data("Settings").callbackFn) {
 								calHolder.data("Settings").callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
 								if (calHolder.data("Settings").noClick === false) {
-									calHolder.fadeOut(300);
+									calHolder.parent().fadeOut(300);
 								}
 							}
 						});
