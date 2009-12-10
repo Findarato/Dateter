@@ -7,8 +7,12 @@
 (function(jQuery){
 	jQuery.dateter={
 		settings : {
+			backgroundClass:"calendar-background",
 			borderStyle:"solid",
 			borderWidth:"1px",
+			borderClass:"calendar-border",
+			borderColor:"",
+			
 			
 			calHolder:"",
 			callbackFn:"",
@@ -19,6 +23,8 @@
 			dayNames:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
 			daysToHighlight:{},
 			displayHeader:true,
+			
+			fontColor:"calendar-fontColor",
 			
 			headerSelectors:{title:-1,back:-1,next:-1},
 			height:"500px",
@@ -138,7 +144,7 @@
 				target.css('z-index',-20);hideme=true;});
 			target.parent().append(
 				calGlobal = jQuery('<div/>')
-				.addClass("OL-fred color-off dateterPopup")
+				.addClass(target.data("Settings").backgroundClass+" dateterPopup")
 				.attr({id:target.data("Settings").uniqueName})
 				.css({position:"absolute",
 				top:target.data("Settings").position.top,
@@ -153,13 +159,6 @@
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("12").addClass("dropdown Ticketform"))
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("00").addClass("dropdown Ticketform"))
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("PM").addClass("dropdown Ticketform"))
-						/*
-						 * <input type="text" name="newReservationSdate" id="newReservationSdate" class="dropdown Ticketform" maxlength="50" style="width:8em" value="Pick a date" />
-				<input type="text" name="newReservationShour" id="newReservationShour" class="dropdown Ticketform" maxlength="2" style="width:20px" value="12" />
-				<font class="opposite">:</font>
-				<input type="text" name="newReservationSminute" id="newReservationSminute" class="dropdown Ticketform" maxlength="2" style="width:20px" value="00" />
-				<input type="text" name="newReservationSampm" id="newReservationSampm" class="dropdown Ticketform" maxlength="2" style="width:23px" value="PM" />
-						 */
 				);
 			}
 			jQuery.fn.dateter.drawCalendar(calBox,target.data("Settings"),target);
@@ -201,7 +200,6 @@
 					daysInMonth: Date.getDaysInMonth(NewYear, NewMonth - 1)
 				});
 			});
-			
 	}
 	
 	/**
@@ -216,11 +214,14 @@
 			if (localSettings.displayHeader) {
 				calHolder.empty().html(jQuery('<table cellpadding="0" cellspacing="0" style="height:20px;width:' + localSettings.width + ';"/>').append(jQuery('<tr/>').append(jQuery('<td id="' + localSettings.uniqueName + 'calBackMonth" style="text-align:center; width:20px;"/>').css({
 					cursor: "pointer"
-				}).html("<img src='/lapcat/layout/icons/4-7-2.png' style='margin-bottom:3px;'/>")).append(jQuery('<td class="font white" id="'+localSettings.uniqueName +'caltitle" style="width:auto;text-align:center"/>').css("font-size", "14px").html(Date.today().set({
-					month: parseInt(localSettings.month) - 1
-				}).toString("MMMM") + " " + localSettings.year)).append(jQuery('<td id="' + localSettings.uniqueName + 'calNextMonth" style="text-align:center; width:20px;"/>').css({
+				}).html($("<font/>").addClass(localSettings.fontColor).html("&laquo;")
+				)).append(jQuery('<td id="'+localSettings.uniqueName +'caltitle" style="width:auto;text-align:center"/>').css("font-size", "14px")
+				.html(
+					$("<font/>").addClass(localSettings.fontColor).html(Date.today().set({month: parseInt(localSettings.month) - 1}).toString("MMMM") + " " + localSettings.year)
+				)
+				).append(jQuery('<td id="' + localSettings.uniqueName + 'calNextMonth" style="text-align:center; width:20px;"/>').css({
 					cursor: "pointer"
-				}).html("<img src='/lapcat/layout/icons/4-7-1.png' style='margin-bottom:3px;'/>"))));
+				}).html($("<font/>").addClass(localSettings.fontColor).html("&raquo;")))));
 			
 				//add the clicks to the headers
 				jQuery.fn.dateter.moveMonth($("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1);
@@ -251,13 +252,13 @@
 			for (var a = 0; a < 6; a++) {//Y
 				calTable.append(jQuery('<tr id="' + localSettings.uniqueName + 'w' + a + '"/>'));
 				for (var b = 0; b < 7; b++) {//X
-					jQuery("#" + localSettings.uniqueName + "w" + a).append(jQuery('<td class="font white" id="' + localSettings.uniqueName + 'd' + cnt + '"/>"').css({
+					jQuery("#" + localSettings.uniqueName + "w" + a).append(jQuery('<td id="' + localSettings.uniqueName + 'd' + cnt + '"/>"')
+					.addClass(localSettings.borderClass)
+					.css({
 						fontSize: "11px",
 						textAlign: "center",
 						width: localSettings.cellWidth,
-						height: localSettings.cellHeight,
-						borderWidth: localSettings.borderWidth,
-						borderStyle: localSettings.borderStyle
+						height: localSettings.cellHeight
 					}));
 					var a_Pass = new Array();
 					a_Pass[0] = localSettings.year == parseInt(Date.today().toString("yyyy"));
@@ -277,7 +278,7 @@
 							}).html(clickArea = $("<div/>").css({
 								width: "100%",
 								height: "15px"
-							}).addClass("border-main-1 "+dayBG).html(dayCnt))
+							}).addClass("border-main-1 "+dayBG).html($("<font/>").addClass(localSettings.fontColor).html(dayCnt)))
 							.append(clickArea2 = $("<div/>").css({
 								overFlow: "hidden",
 								width: "100%",
@@ -285,7 +286,7 @@
 							}).addClass("clickarea2 border-main-1")						//.html(localsettings.uniqueName+"d"+cnt)
 							));
 						}else {
-							clickArea = curDay.html(dayCnt);
+							clickArea = curDay.html($("<font/>").addClass(localSettings.fontColor).html(dayCnt));
 						}
 						if (localSettings.pastDayShades) {
 							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? "color-off" : "calendar-cell")).css({
@@ -338,7 +339,7 @@
 								}).html($("<span/>").css({
 									fontSize: "9px",
 									fontWeight: "bold"
-								}).html(item.timeS + " - " + item.timeE)).addClass("border-theme-1 ui-corner-all").css({
+								}).html($("<font/>").addClass(localSettings.fontColor).html(item.timeS + " - " + item.timeE))).addClass("border-theme-1 ui-corner-all").css({
 									width: "90%",
 									backgroundColor: localSettings.highLightColors[item.location_id-1]
 								}));
