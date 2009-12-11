@@ -12,7 +12,8 @@
 			borderWidth:"1px",
 			borderClass:"calendar-border",
 			borderColor:"",
-			
+			borderRound:false,
+			borderRoundClass:"calendar-corner",
 			
 			calHolder:"",
 			callbackFn:"",
@@ -49,6 +50,7 @@
 			position:[], 
 			
 			showDaynames:false,
+			shadeClass:"calendar-shade",
 			smallDayNames:["S","M","T","W","T","F","S"],
 			startMonth:-1,
 			startofMonth:0,
@@ -142,14 +144,15 @@
 				jQuery(".dateterPopup").hide();
 				jQuery("#"+target.data("Settings").uniqueName).show();
 				target.css('z-index',-20);hideme=true;});
-			target.parent().append(
-				calGlobal = jQuery('<div/>')
-				.addClass(target.data("Settings").backgroundClass+" dateterPopup")
-				.attr({id:target.data("Settings").uniqueName})
-				.css({position:"absolute",
-				top:target.data("Settings").position.top,
-				left:target.data("Settings").position.left,padding:"3px"})
-				.hide());
+			target
+				.parent()
+				.append(
+					calGlobal = jQuery('<div/>')
+					.addClass(target.data("Settings").backgroundClass+" dateterPopup")
+					.attr({id:target.data("Settings").uniqueName})
+					.css({position:"absolute",top:target.data("Settings").position.top,	left:target.data("Settings").position.left,padding:"3px"})
+					.hide()
+				);
 			calGlobal.append(calBox = jQuery('<div/>'));
 			if(target.data("Settings").timeSelector){
 				calGlobal.append(
@@ -205,7 +208,7 @@
 			if (dayTest) {
 				lsdth = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];
 				jQuery.each(lsdth,function(i,item){
-					eventBox = $("#eventBox"+i);//assign the selector once 
+					eventBox = $("#eventBox"+i);//assign the selector once
 					if (localSettings.largeDisplay === true) {
 						eventBox.empty();
 						ca2 = eventBox.height() - 17;
@@ -218,7 +221,72 @@
 								.append(
 									$("<div/>")
 										.addClass(localSettings.borderClass+" ui-corner-all")
-										.css({textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "90%",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+										.css({backgroundColor:"#FFF",position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "90%",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+										.click(function(){
+											if(item2.name){
+												title = item2.name;
+												note = item2.comment;
+											}else{
+												title = "Reserved";
+												note = "This room is reserved";
+											}
+											$("#eventPopBox").replaceWith();
+											if(localSettings.borderRound){
+												round = localSettings.borderRoundClass;
+											}else{round = "";}
+											position = $(this).parent().position();
+											eventBox
+												.append(
+													$("<div/>")
+													.addClass(localSettings.borderClass+" "+localSettings.backgroundClass+" "+round)
+													.css({
+														textAlign:"left",
+														padding: "2px",
+														minWidth:$(this).parent().innerWidth()-5,
+														minHeight:$(this).parent().innerHeight()-5,
+														maxWidth:$(this).parent().innerWidth()+20,
+														height:"auto",
+														position: "absolute",
+														top: position.top+2,
+														left: position.left+2,
+													})
+													.attr({id: "eventPopBox"})
+													.html(
+														$("<div/>")
+															.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+round)
+															.css({width:"100%",height:"17px",position:"relative",fontSize:"12px"})
+															.html(title)
+															.append(
+																$("<div/>")
+																	.css({position: "absolute",	top: 0,right: 0})
+																	.html(
+																		$("<div/>")
+																			.css({height:"10px",width:"10px"})
+																			.html("&nbsp;")
+																			.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+round)
+																	)
+																	.click(function(){
+																		$("#eventPopBox").replaceWith();//remove the box
+																	})
+															)
+													)
+													.append(
+														$("<div/>")
+															.html(note)
+													)
+													.append(
+														$("<div/>")
+															.css({position: "relative",	bottom: 0,left: 0})
+															.html(
+																$("<font/>")
+																	.css({fontWeight:"bold"})
+																	.addClass(localSettings.fontColor)
+																	.html(item2.timeS + " - " + item2.timeE)
+															)
+													)
+												);
+
+										})
 										.html(
 											$("<span/>")
 												.css({fontSize: "9px",fontWeight: "bold"})
@@ -313,7 +381,7 @@
 					if (cnt >= localSettings.startofMonth && dayCnt < localSettings.daysInMonth) {
 						curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
 						dayCnt++;
-						dayBG = "dark";
+						dayBG = localSettings.shadeClass;
 						if (localSettings.largeDisplay === true) {
 							curDay
 								.html(
