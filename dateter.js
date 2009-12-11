@@ -162,10 +162,8 @@
 				);
 			}
 			jQuery.fn.dateter.drawCalendar(calBox,target.data("Settings"),target);
-			//position = jQuery(target).position();
 			heightAdjust = jQuery(target).height();
 			heightAdjust=0;
-			//calBox.css({top:position.top+heightAdjust,left:position.left,position:"absolute"});	
 		}
 	}
 	jQuery.fn.dateter.moveMonth = function(selector,moveSettings,target,direction){
@@ -202,58 +200,48 @@
 			});
 	}
 	jQuery.fn.dateter.drawHighlight = function(localSettings){
-			try {
-				dayTest = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];
-			} catch(e){ //the user is clicking too fast, lets just set it to be blank so it will pass
-				dayTest = false;
-			}
-			
+			try {dayTest = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];}
+			catch(e){dayTest = false;}
 			if (dayTest) {
 				lsdth = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];
 				jQuery.each(lsdth,function(i,item){
-					//eventBox28
+					eventBox = $("#eventBox"+i);//assign the selector once 
 					if (localSettings.largeDisplay === true) {
-						clickArea2.empty();
-						ca2 = clickArea2.height() - 17;
+						eventBox.empty();
+						ca2 = eventBox.height() - 17;
 						displayAmount = Math.round(parseInt(ca2) / 15) - 1;
 						var displayCnt = 0;
 						$.each(item, function(i2, item2){
 							displayCnt++;
-							if (i2 > displayAmount) {
-								return;
-							}
-							$("#eventBox"+i).append(
-								$("<div/>")
-									.css({textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px"})
-									.html(
-										$("<span/>")
-											.css({fontSize: "9px",fontWeight: "bold"})
-											.html(
-												$("<font/>")
-													.addClass(localSettings.fontColor)
-													.html(item2.timeS + " - " + item2.timeE)
-											)
-									)
-									.addClass(localSettings.borderClass+" ui-corner-all")
-									.css({width: "90%",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
-							);
+							if (i2 > displayAmount) {return;}
+							eventBox
+								.append(
+									$("<div/>")
+										.addClass(localSettings.borderClass+" ui-corner-all")
+										.css({textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "90%",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+										.html(
+											$("<span/>")
+												.css({fontSize: "9px",fontWeight: "bold"})
+												.html(
+													$("<font/>")
+														.addClass(localSettings.fontColor)
+														.html(item2.timeS + " - " + item2.timeE)
+												)
+										)
+								);
 						});
 					
 						if (displayCnt > displayAmount) {
-							clickArea2.append($("<a/>").css({
-								fontSize: "9px",
-								fontWeight: "bold"
-							}).html("&#43;" + (displayCnt - displayAmount) + " More"));
+							eventBox
+								.append(
+									$("<a/>")
+										.css({fontSize: "9px",fontWeight: "bold"})
+										.html("&#43;" + (displayCnt - displayAmount) + " More"));
 						}
-						//jQuery("#" + localSettings.uniqueName + "d" + cnt).attr("title", localSettings.daysToHighlight[dayCnt]);
 					}else {
-						jQuery("#" + localSettings.uniqueName + "d" + i).css({
-							backgroundColor: localSettings.highLightColors[0]
-						});
-						
+						jQuery("#" + localSettings.uniqueName + "d" + i)
+							.css({backgroundColor: localSettings.highLightColors[0]});
 					}
-					
-					
 				});
 					
 			}
@@ -330,24 +318,31 @@
 							curDay
 								.html(
 									$("<div/>")
-									.css({overflow: "hidden",height: "100%",width: "100%"})
-									.html(
-										clickArea = $("<div/>")
-											.css({width: "100%",height: "15px"})
-											.addClass(localSettings.borderClass+" "+dayBG)
-											.html(
-												$("<font/>").addClass(localSettings.fontColor).html(dayCnt)
-											)
-									)
-									.append(
-										clickArea2 = $("<div/>")
-											.attr({id:"eventBox"+dayCnt})
-											.css({overFlow: "hidden",width: "100%",height: realCellHeight - 15})
-											.addClass("clickarea2 "+localSettings.borderClass)
-									)
+										.css({overflow: "hidden",height: "100%",width: "100%"})
+										.html(
+											clickArea = $("<div/>")
+												.css({width: "100%",height: "15px"})
+												.addClass(localSettings.borderClass+" "+dayBG)
+												.html(
+													$("<font/>")
+														.addClass(localSettings.fontColor)
+														.html(dayCnt)
+												)
+										)
+										.append(
+											clickArea2 = $("<div/>")
+												.attr({id:"eventBox"+dayCnt})
+												.css({overFlow: "hidden",width: "100%",height: realCellHeight - 15})
+												.addClass("clickarea2 "+localSettings.borderClass)
+										)
 								);
 						}else {
-							clickArea = curDay.html($("<font/>").addClass(localSettings.fontColor).html(dayCnt));
+							clickArea = curDay
+								.html(
+									$("<font/>")
+										.addClass(localSettings.fontColor)
+										.html(dayCnt)
+								);
 						}
 						if (localSettings.pastDayShades) {
 							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? "color-off" : "calendar-cell")).css({
