@@ -211,12 +211,16 @@
 					eventBox = $("#eventBox"+i);//assign the selector once
 					if (localSettings.largeDisplay === true) {
 						eventBox.empty();
-						ca2 = eventBox.height() - 17;
-						displayAmount = Math.round(parseInt(ca2) / 15) - 1;
+						ca2 = eventBox.height() - 20;
+						if(ca2<0){ca2=15}
+						displayAmount = Math.round(parseInt(ca2) / 20);
 						var displayCnt = 0;
+						var totalDisplay = 0;
 						$.each(item, function(i2, item2){
 							displayCnt++;
-							if (i2 > displayAmount) {return;}
+							console.log("boxHeight=>"+ca2+":Display amount=>"+displayAmount+":i2=>"+i2);
+							
+							if (i2 > displayAmount-1) {totalDisplay++;return;	}
 							eventBox
 								.append(
 									$("<div/>")
@@ -234,7 +238,7 @@
 											if(localSettings.borderRound){
 												round = localSettings.borderRoundClass;
 											}else{round = "";}
-											position = $(this).parent().position();
+											position = $(this).position();
 											eventBox
 												.append(
 													$("<div/>")
@@ -244,11 +248,12 @@
 														padding: "2px",
 														minWidth:$(this).parent().innerWidth()-5,
 														minHeight:$(this).parent().innerHeight()-5,
-														maxWidth:$(this).parent().innerWidth()+20,
+														//maxWidth:$(this).parent().innerWidth()+20,
 														height:"auto",
 														position: "absolute",
 														top: position.top+2,
 														left: position.left+2,
+														zIndex:"100"
 													})
 													.attr({id: "eventPopBox"})
 													.html(
@@ -276,6 +281,15 @@
 													)
 													.append(
 														$("<div/>")
+															.html(
+																$("<font/>")
+																	.css({fontWeight:"bold"})
+																	.addClass(localSettings.fontColor)
+																	.html(item2.location_name)
+															)
+													)
+													.append(
+														$("<div/>")
 															.css({position: "relative",	bottom: 0,left: 0})
 															.html(
 																$("<font/>")
@@ -299,10 +313,51 @@
 								);
 						});
 					
+						//show the +x more and allow the person to see them
 						if (displayCnt > displayAmount) {
+							if(localSettings.borderRound){round = localSettings.borderRoundClass;}else{round = "";}
+							//$("#dayBox"+i)
 							eventBox
 								.append(
 									$("<a/>")
+										.click(function(){
+											position = $(this).parent().position();
+											$("#eventBox"+i)
+												.append(
+													$("<div/>")
+													.addClass(localSettings.borderClass+" "+localSettings.backgroundClass+" "+round)
+													.css({
+														textAlign:"left",
+														padding: "2px",
+														minWidth:$(this).parent().innerWidth()-5,
+														minHeight:$(this).parent().innerHeight()-5,
+														maxWidth:$(this).parent().innerWidth()+20,
+														height:"auto",
+														position: "absolute",
+														top: position.top+2,
+														left: position.left+2,
+													})
+													.attr({id: "eventPopBox"})
+													.html(
+														""
+													)
+													.append(
+														$("<div/>")
+															.css({position: "absolute",	top: 0,right: 0})
+															.html(
+																$("<div/>")
+																	.css({height:"10px",width:"10px"})
+																	.html("&nbsp;")
+																	.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+round)
+															)
+															.click(function(){
+																$("#eventPopBox").replaceWith();//remove the box
+															})
+													)
+													
+												);
+											return false;//do not do the href
+										})
 										.css({fontSize: "9px",fontWeight: "bold"})
 										.html("&#43;" + (displayCnt - displayAmount) + " More"));
 						}
@@ -386,6 +441,7 @@
 							curDay
 								.html(
 									$("<div/>")
+										.attr({id:"dayBox"+dayCnt})
 										.css({overflow: "hidden",height: "100%",width: "100%"})
 										.html(
 											clickArea = $("<div/>")
