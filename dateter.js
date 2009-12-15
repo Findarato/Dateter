@@ -362,7 +362,8 @@
 										.html("&#43;" + (displayCnt - displayAmount) + " More"));
 						}
 					}else {
-						jQuery("#" + localSettings.uniqueName + "d" + i)
+						smallDay = parseInt(i)+1;
+						jQuery("#" + localSettings.uniqueName + "d" + smallDay)
 							.css({backgroundColor: localSettings.highLightColors[0]});
 					}
 				});
