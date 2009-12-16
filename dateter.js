@@ -213,20 +213,27 @@
 						eventBox.empty();
 						ca2 = eventBox.height() - 20;
 						if(ca2<0){ca2=15}
-						displayAmount = Math.round(parseInt(ca2) / 20);
+						//displayAmount = Math.round(parseInt(ca2) / 20);
+						displayAmount = 100;
 						var displayCnt = 0;
 						var totalDisplay = 0;
 						$.each(item, function(i2, item2){
 							displayCnt++;
-							console.log("boxHeight=>"+ca2+":Display amount=>"+displayAmount+":i2=>"+i2);
+							/*
+							if(console.log){
+								console.log("boxHeight=>"+ca2+":Display amount=>"+displayAmount+":i2=>"+i2);	
+							}
+							*/
 							
 							if (i2 > displayAmount-1) {totalDisplay++;return;	}
 							eventBox
 								.append(
 									$("<div/>")
 										.addClass(localSettings.borderClass+" ui-corner-all")
-										.css({backgroundColor:"#FFF",position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "90%",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+										.css("float","left")
+										.css({backgroundColor:"#FFF",position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
 										.click(function(){
+											
 											if(item2.name){
 												title = item2.name;
 												note = item2.comment;
@@ -304,10 +311,12 @@
 										.html(
 											$("<span/>")
 												.css({fontSize: "9px",fontWeight: "bold"})
-												.html(
+												.html("&nbsp;"
+												/*
 													$("<font/>")
 														.addClass(localSettings.fontColor)
 														.html(item2.timeS + " - " + item2.timeE)
+														*/
 												)
 										)
 								);
