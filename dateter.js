@@ -12,7 +12,6 @@
 			borderWidth:"1px",
 			borderClass:"calendar-border",
 			borderColor:"",
-			borderRound:false,
 			borderRoundClass:"calendar-corner",
 			
 			calHolder:"",
@@ -87,9 +86,6 @@
 			Settings.cellHeight=Math.floor((parseInt(Settings.height)-20)/7);
 			Settings.cellWidth=Math.floor((parseInt(Settings.width)-20)/7);
 		}
-		
-		if (Settings.noClick === true) {
-		}else{target.attr("onBlur","javascript:setTimeout(\'jQuery.fn.hideBox(\"calBox\",300,\""+target.attr("id")+"\")\',200);");}
 		target.data("Settings",Settings);
 		jQuery.fn.dateter.init(target);
 	}
@@ -141,19 +137,21 @@
 		}else{//a click calendar
 			
 			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
-			jQuery(target).click(function(){
-				Shadow = $("<div style=\" z-index:1000;\" id=\"Shadow\"/>")
-					.click(function(){
-						jQuery(".dateterPopup").fadeOut(200);
-						$("#Shadow").remove();
-					})
-					.css({display:"block",top:0,left:0,height:jQuery('body').height(),width:jQuery('body').width(),position:"absolute"})
-					.hide();
-				jQuery('body').append(Shadow);
-				jQuery(".dateterPopup").hide();
-				jQuery("#"+target.data("Settings").uniqueName).css("z-index","1001").show();
-				target.css('z-index',-20);hideme=true;
-				jQuery("#Shadow").show();
+			jQuery(target)
+				.click(function(){
+					Shadow = $("<div style=\" z-index:1000;\" id=\"Shadow\"/>")
+						.click(function(){
+							jQuery(".dateterPopup").fadeOut(200);
+							$("#Shadow").remove();
+							target.show()
+						})
+						.css({display:"block",top:0,left:0,height:jQuery('body').height(),width:jQuery('body').width(),position:"absolute"})
+						.hide();
+			jQuery('body').append(Shadow);
+			jQuery(".dateterPopup").hide();
+			jQuery("#"+target.data("Settings").uniqueName).css("z-index","1001").show();
+			target.hide()
+			jQuery("#Shadow").show();
 			});
 			//Add a shadow box
 			jQuery(target)
@@ -169,6 +167,7 @@
 			if(target.data("Settings").timeSelector){
 				calGlobal.append(
 					jQuery("<div/>")
+						.addClass(borderRoundClass)
 						.css({position:"relative",bottom:0,left:0,width:"100%",height:"20px",paddingTop:"4px"})
 						.append(jQuery("<span/>").addClass("opposite").html("Please Enter a time : "))
 						.append(jQuery("<input/>").attr({type:"text",maxlength:"2"}).css({width:"20px"}).val("12").addClass("dropdown Ticketform"))
@@ -254,9 +253,7 @@
 												note = "This room is reserved";
 											}
 											$("#eventPopBox").replaceWith();
-											if(localSettings.borderRound){
-												round = localSettings.borderRoundClass;
-											}else{round = "";}
+											round = localSettings.borderRoundClass;
 											position = $(this).position();
 											eventBox
 												.append(
@@ -401,16 +398,45 @@
 			calHolder.data("Settings", localSettings);
 			var calTable = "";
 			if (localSettings.displayHeader) {
-				calHolder.empty().html(jQuery('<table cellpadding="0" cellspacing="0" style="height:20px;width:' + localSettings.width + ';"/>').append(jQuery('<tr/>').append(jQuery('<td id="' + localSettings.uniqueName + 'calBackMonth" style="text-align:center; width:20px;"/>').css({
-					cursor: "pointer"
-				}).html($("<font/>").addClass(localSettings.fontColor).html("&laquo;")
-				)).append(jQuery('<td id="'+localSettings.uniqueName +'caltitle" style="width:auto;text-align:center"/>').css("font-size", "14px")
-				.html(
-					$("<font/>").addClass(localSettings.fontColor).html(Date.today().set({month: parseInt(localSettings.month) - 1}).toString("MMMM") + " " + localSettings.year)
-				)
-				).append(jQuery('<td id="' + localSettings.uniqueName + 'calNextMonth" style="text-align:center; width:20px;"/>').css({
-					cursor: "pointer"
-				}).html($("<font/>").addClass(localSettings.fontColor).html("&raquo;")))));
+				calHolder
+					.empty()
+					.html(
+						jQuery('<table cellpadding="0" cellspacing="0" style="height:20px;width:' + localSettings.width + ';"/>')
+							.append(
+								jQuery('<tr/>')
+									.append(
+										jQuery('<td id="' + localSettings.uniqueName + 'calBackMonth" style="text-align:center; width:20px;"/>')
+											.css({cursor: "pointer"})
+											.html(
+												$("<font/>")
+													.addClass(localSettings.fontColor)
+													.html("&laquo;")
+											)
+									)
+									.append(
+										jQuery('<td id="'+localSettings.uniqueName +'caltitle" style="width:auto;text-align:center"/>')
+											.css("font-size", "14px")
+											.html(
+												$("<font/>")
+													.addClass(localSettings.fontColor)
+													.html(
+														Date
+															.today()
+															.set({month: parseInt(localSettings.month) - 1})
+															.toString("MMMM") + " " + localSettings.year)
+											)
+									)
+									.append(
+										jQuery('<td id="' + localSettings.uniqueName + 'calNextMonth" style="text-align:center; width:20px;"/>')
+											.css({cursor: "pointer"})
+											.html(
+												$("<font/>")
+													.addClass(localSettings.fontColor)
+													.html("&raquo;")
+											)
+									)
+							)
+					);
 			
 				//add the clicks to the headers
 				jQuery.fn.dateter.moveMonth($("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1);
@@ -419,22 +445,24 @@
 			} else {
 				calHolder.empty().html(jQuery('<table/>'));
 				if (localSettings.headerSelectors.title != -1) {
-					localSettings.headerSelectors.title.html(
-						Date.today().set({
-							month: parseInt(localSettings.month) -1
-						}).toString("MMMM") + " " + localSettings.year
+					localSettings.headerSelectors.title
+						.html(
+							Date
+								.today()
+								.set({month: parseInt(localSettings.month) -1})
+								.toString("MMMM") + " " + localSettings.year
 					);
 				}
 			}
 			var cnt = 0;
 			var dayCnt = 0;
 			var monthStart = false;
-			calHolder.append(calTable = jQuery('<table cellpadding="0" cellspacing="0"/>').css({
-				width: localSettings.width,
-				height: localSettings.height
-			}).attr({
-				id: "calBox" + localSettings.uniqueName
-			}));
+			calHolder
+				.append(
+					calTable = jQuery('<table cellpadding="0" cellspacing="0"/>')
+						.css({width: localSettings.width,height: localSettings.height})
+						.attr({id: "calBox" + localSettings.uniqueName})
+				);
 			realCellHeight = $("#calBox" + localSettings.uniqueName).height() / 6;
 			realCellHeight--; //hopefuly fix the 6 row scroll bar
 			calTable.empty();
@@ -507,8 +535,10 @@
 						}
 						clickArea.click(function(){
 							if (calHolder.data("Settings").callbackFn) {
+								$("#Shadow").remove();
 								calHolder.data("Settings").callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
 								if (calHolder.data("Settings").noClick === false) {
+									target.show()
 									calHolder.parent().fadeOut(300);
 								}
 							}
