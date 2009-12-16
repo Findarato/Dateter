@@ -180,7 +180,7 @@
 			heightAdjust=0;
 		}
 	}
-	jQuery.fn.dateter.moveMonth = function(selector,moveSettings,target,direction){
+	jQuery.fn.dateter.moveMonth = function(selector,moveSettings,target,direction,drawTarget){
 		target.data("Settings",jQuery.extend(true,target.data("Settings"), moveSettings));
 		localsettings = target.data("Settings");
 		selector
@@ -210,7 +210,7 @@
 					startofMonth: NewMonthStart,
 					daysToHighlight:target.data("Settings").daysToHighlight,
 					daysInMonth: Date.getDaysInMonth(NewYear, NewMonth - 1)
-				});
+				},drawTarget);
 			});
 	}
 	jQuery.fn.dateter.drawHighlight = function(localSettings){
@@ -439,8 +439,8 @@
 					);
 			
 				//add the clicks to the headers
-				jQuery.fn.dateter.moveMonth($("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1);
-				jQuery.fn.dateter.moveMonth($("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1);
+				jQuery.fn.dateter.moveMonth($("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1,target);
+				jQuery.fn.dateter.moveMonth($("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1,target);
 				
 			} else {
 				calHolder.empty().html(jQuery('<table/>'));
@@ -533,15 +533,17 @@
 								curDay.addClass("calendar-cell").css({cursor: "pointer"});
 							}
 						}
-						clickArea.click(function(){
-							if (calHolder.data("Settings").callbackFn) {
-								$("#Shadow").remove();
-								calHolder.data("Settings").callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
-								if (calHolder.data("Settings").noClick === false) {
-									target.show()
-									calHolder.parent().fadeOut(300);
+						clickArea
+							.click(function(){
+								if (calHolder.data("Settings").callbackFn) {
+									$("#Shadow").remove();
+									calHolder.data("Settings").callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
+									if (calHolder.data("Settings").noClick === false) {
+									//	alert(calHolder.html());
+										target.show()
+										calHolder.parent().fadeOut(300);
+									}
 								}
-							}
 						});
 					}
 					cnt++;
