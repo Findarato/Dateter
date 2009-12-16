@@ -469,14 +469,17 @@
 			for (var a = 0; a < 6; a++) {//Y
 				calTable.append(jQuery('<tr id="' + localSettings.uniqueName + 'w' + a + '"/>'));
 				for (var b = 0; b < 7; b++) {//X
-					jQuery("#" + localSettings.uniqueName + "w" + a).append(jQuery('<td id="' + localSettings.uniqueName + 'd' + cnt + '"/>"')
-					.addClass(localSettings.borderClass)
-					.css({
-						fontSize: "11px",
-						textAlign: "center",
-						width: localSettings.cellWidth,
-						height: localSettings.cellHeight
-					}));
+					jQuery("#" + localSettings.uniqueName + "w" + a)
+						.append(
+							jQuery('<td id="' + localSettings.uniqueName + 'd' + cnt + '"/>"')
+							.addClass(localSettings.borderClass)
+							.css({
+								fontSize: "11px",
+								textAlign: "center",
+								width: localSettings.cellWidth,
+								height: localSettings.cellHeight
+							})
+						);
 					var a_Pass = new Array();
 					a_Pass[0] = localSettings.year == parseInt(Date.today().toString("yyyy"));
 					a_Pass[1] = localSettings.year < parseInt(Date.today().toString("yyyy"));
@@ -527,17 +530,23 @@
 								if(Date.today().toString("d") == dayCnt && Date.today().toString("M")== localsettings.month ){
 									curDay.addClass(localSettings.highLightTodayClass).css({cursor: "pointer"});
 								}else{
-									curDay.addClass("calendar-cell").css({cursor: "pointer"});
+									curDay
+										.addClass("calendar-cell")
+										.css({cursor: "pointer"});
 								}
 							}else{
-								curDay.addClass("calendar-cell").css({cursor: "pointer"});
+								curDay
+									.addClass("calendar-cell")
+									.css({cursor: "pointer"});
 							}
 						}
 						clickArea
 							.click(function(){
 								if (calHolder.data("Settings").callbackFn) {
 									$("#Shadow").remove();
-									calHolder.data("Settings").callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
+									calHolder
+										.data("Settings")
+											.callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
 									if (calHolder.data("Settings").noClick === false) {
 									//	alert(calHolder.html());
 										target.show()
