@@ -47,6 +47,7 @@
 
 			pastDayShades:true,
 			position:[], 
+			popUpBackgroundClass:"calendar-cell",
 			
 			showDaynames:false,
 			shadeClass:"calendar-shade",
@@ -242,7 +243,7 @@
 									$("<div/>")
 										.addClass(localSettings.borderClass+" ui-corner-all")
 										.css("float","left")
-										.css({backgroundColor:"#FFF",position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+										.css({position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
 										.click(function(){
 											
 											if(item2.name){
@@ -258,13 +259,12 @@
 											eventBox
 												.append(
 													$("<div/>")
-													.addClass(localSettings.borderClass+" "+localSettings.backgroundClass+" "+round)
+													.addClass(localSettings.borderClass+" "+localSettings.popUpBackgroundClass+" "+round)
 													.css({
 														textAlign:"left",
 														padding: "2px",
 														minWidth:$(this).parent().innerWidth()-5,
 														minHeight:$(this).parent().innerHeight()-5,
-														//maxWidth:$(this).parent().innerWidth()+20,
 														height:"auto",
 														position: "absolute",
 														top: position.top+2,
@@ -275,7 +275,7 @@
 													.html(
 														$("<div/>")
 															.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+round)
-															.css({width:"100%",height:"17px",position:"relative",fontSize:"12px"})
+															.css({width:"100%",height:"17px",position:"relative",fontSize:"12px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
 															.html(title)
 															.append(
 																$("<div/>")
