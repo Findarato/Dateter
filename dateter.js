@@ -527,7 +527,7 @@
 							});
 						}else {
 							if(localSettings.highLightToday){
-								if(Date.today().toString("d") == dayCnt && Date.today().toString("M")== localsettings.month ){
+								if(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year){
 									curDay.addClass(localSettings.highLightTodayClass).css({cursor: "pointer"});
 								}else{
 									curDay
@@ -548,7 +548,6 @@
 										.data("Settings")
 											.callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
 									if (calHolder.data("Settings").noClick === false) {
-									//	alert(calHolder.html());
 										target.show()
 										calHolder.parent().fadeOut(300);
 									}
