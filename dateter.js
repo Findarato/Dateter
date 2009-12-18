@@ -5,8 +5,8 @@
  * @copyright August 5, 2009 
  */
 (function(jQuery){
-	jQuery.dateter={
-		settings : {
+	
+	var	settings = {
 			backgroundClass:"calendar-background",
 			borderStyle:"solid",
 			borderWidth:"1px",
@@ -61,11 +61,9 @@
 			uniqueName:"dateter",
 			width:"500px", 
 			year:-1
-		}
 	};
 	var hideme=true;
 	//var monthSwitch;
-	var Settings = jQuery.dateter.settings;
 	/**
 	 * Main part of the script.  Pass it a series of options and a custom call back.
 	 * @param {Object} options
@@ -77,7 +75,7 @@
 	}
  	jQuery.fn.dateter = function(options,custom_callback,custom_monthSwitch){
 		target = jQuery(this);
-		Settings = jQuery.extend({},jQuery.dateter.settings, options);
+		Settings = jQuery.extend({},settings, options);
 		Settings.callbackFn = custom_callback ? custom_callback : false;
 		Settings.monthSwitchFn = custom_monthSwitch ? custom_monthSwitch : false;
 		if (Settings.timeSelector) {
