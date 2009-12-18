@@ -1,7 +1,7 @@
 /**
  * Requires datejs
  * @author Joseph Harry, a.k.a., Mr. Roboto Findarato
- * @version 1.0
+ * @version 0.5.0
  * @copyright August 5, 2009 
  */
 (function(jQuery){
