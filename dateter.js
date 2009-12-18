@@ -542,12 +542,11 @@
 						}
 						clickArea
 							.click(function(){
-								if (calHolder.data("Settings").callbackFn) {
+								if (localSettings.callbackFn) {
 									$("#Shadow").remove();
-									calHolder
-										.data("Settings")
-											.callbackFn(calHolder.data("Settings").month, $(this).text(), calHolder.data("Settings").year);
-									if (calHolder.data("Settings").noClick === false) {
+									localSettings
+											.callbackFn(localSettings.month, $(this).text(), localSettings.year);
+									if (localSettings.noClick === false) {
 										target.show()
 										calHolder.parent().fadeOut(300);
 									}
