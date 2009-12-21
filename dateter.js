@@ -223,7 +223,7 @@
 						eventBox.empty();
 						ca2 = eventBox.height() - 20;
 						if(ca2<0){ca2=15}
-						//displayAmount = Math.round(parseInt(ca2) / 20);
+						//displayAmount = yMath.round(parseInt(ca2) / 20);
 						displayAmount = 100;
 						var displayCnt = 0;
 						var totalDisplay = 0;
