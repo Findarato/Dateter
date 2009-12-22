@@ -564,9 +564,9 @@
 						}
 						clickArea
 							.click(function(){
-								if (localSettings.callbackFn) {
+								if (calHolder.data("Settings").callbackFn) {
 									$("#Shadow").remove();
-									localSettings
+									calHolder.data("Settings")
 											.callbackFn(localSettings.month, $(this).text(), localSettings.year);
 									if (localSettings.noClick === false) {
 										target.show()
