@@ -514,7 +514,7 @@
 										.css({overflow: "hidden",height: "100%",width: "100%"})
 										.html(
 											clickArea = $("<div/>")
-												.css({width: "100%",height: "15px"})
+												.css({borderTop:0,borderLeft:0,borderRight:0,width: "100%",height: "15px"})
 												.addClass(localSettings.borderClass+" "+dayBG)
 												.html(
 													$("<font/>")
@@ -525,8 +525,8 @@
 										.append(
 											clickArea2 = $("<div/>")
 												.attr({id:"eventBox"+dayCnt})
-												.css({overFlow: "hidden",width: "100%",height: realCellHeight - 15})
-												.addClass("clickarea2 "+localSettings.borderClass)
+												.css({borderTop:0,borderLeft:0,borderRight:0,overFlow: "hidden",width: "100%",height: realCellHeight - 15})
+												.addClass("clickarea2 ")
 										)
 								);
 						}else {
@@ -568,6 +568,52 @@
 									} 
 								}
 						});
+					}else{
+						//
+						curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
+						if (localSettings.largeDisplay === true) {
+							curDay
+								.html($("<div/>")
+								.attr({id: "dayBox" + dayCnt})
+								.css({
+									overflow: "hidden",
+									height: "100%",
+									width: "100%"
+								})
+								.html(
+									clickArea = $("<div/>")
+									.css({
+										borderTop: 0,
+										borderLeft: 0,
+										borderRight: 0,
+										width: "100%",
+										height: "15px"
+									})
+									.html(
+										$("<font/>")
+											.addClass(localSettings.fontColor)
+											.html("&nbsp;")
+										)
+								)
+								.append(
+									clickArea2 = $("<div/>")
+									.attr({	id: "eventBox" + dayCnt})
+									.css({
+										borderTop: 0,
+										borderLeft: 0,
+										borderRight: 0,
+										overFlow: "hidden",
+										width: "100%",
+										height: realCellHeight - 15
+									})
+									.addClass("clickarea2 ")
+								)
+							);
+						}
+						
+						//
+						
+						
 					}
 					cnt++;
 				}
