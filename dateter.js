@@ -151,7 +151,9 @@
 			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
 			jQuery(target)
 				.click(function(){
-					Shadow = $("<div style=\" z-index:1000;\" id=\"Shadow\"/>")
+					jQuery('#'+target.data("Settings").uniqueName).css({position:"absolute",top:$(this).offset().top,left:$(this).offset().left})
+					//alert($(this).position().top);
+					Shadow = $("<div style=\" z-index:999999;\" id=\"Shadow\"/>")
 						.click(function(){
 							jQuery(".dateterPopup").fadeOut(200);
 							$("#Shadow").remove();
@@ -159,22 +161,22 @@
 						})
 						.css({display:"block",top:0,left:0,height:jQuery('body').height(),width:jQuery('body').width(),position:"absolute"})
 						.hide();
-			jQuery('body').append(Shadow);
-			jQuery(".dateterPopup").hide();
-			jQuery("#"+target.data("Settings").uniqueName).css("z-index","1001").show();
-			target.hide()
-			jQuery("#Shadow").show();
+				jQuery('body').append(Shadow);
+				jQuery(".dateterPopup").hide();
+				jQuery("#"+target.data("Settings").uniqueName).css("z-index","1000000").show();
+				//target.hide()
+				jQuery("#Shadow").show();
+				
 			});
 			//Add a shadow box
-			jQuery(target)
-				.parent()
+			jQuery("body")
 				.append(
 					calGlobal = jQuery('<div/>')
 					.addClass(target.data("Settings").borderClass+" "+target.data("Settings").borderRoundClass+" "+target.data("Settings").backgroundClass+" "+target.data("Settings").shadeClass+" dateterPopup")
 					.attr({id:target.data("Settings").uniqueName})
-					.css({position:"absolute",top:jQuery(target).position.top,left:jQuery(target).position.left})
 					.hide()
 			);
+			
 			calGlobal.append(calBox = jQuery('<div/>'));
 			if(target.data("Settings").timeSelector){
 				calGlobal.append(
