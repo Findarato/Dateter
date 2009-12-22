@@ -261,6 +261,7 @@
 							*/
 							if (i2 > displayAmount-1) {totalDisplay++;return;	}
 							eventBox
+								.css({overflow: "hidden"})
 								.append(
 									$("<div/>")
 										.addClass(localSettings.borderClass+" ui-corner-all")
@@ -475,11 +476,12 @@
 			var monthStart = false;
 			calHolder
 				.append(
-					calTable = jQuery('<table cellpadding="0" cellspacing="0"/>')
+					calTable = jQuery('<table cellpadding="0" cellspacing="0" border="1"/>')
 						.css({width: localSettings.width,height: localSettings.height})
+						.addClass(localSettings.borderClass)
 						.attr({id: "calBox" + localSettings.uniqueName})
 				);
-			realCellHeight = $("#calBox" + localSettings.uniqueName).height() / 6;
+			realCellHeight = parseInt(localSettings.height) / 6;
 			realCellHeight--; //hopefuly fix the 6 row scroll bar
 			calTable.empty();
 			for (var a = 0; a < 6; a++) {//Y
@@ -488,7 +490,6 @@
 					jQuery("#" + localSettings.uniqueName + "w" + a)
 						.append(
 							jQuery('<td id="' + localSettings.uniqueName + 'd' + cnt + '"/>"')
-							.addClass(localSettings.borderClass)
 							.css({
 								fontSize: "11px",
 								textAlign: "center",
@@ -505,7 +506,6 @@
 					if (cnt >= localSettings.startofMonth && dayCnt < localSettings.daysInMonth) {
 						curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
 						dayCnt++;
-						dayBG = localSettings.shadeClass;
 						if (localSettings.largeDisplay === true) {
 							curDay
 								.html(
@@ -515,7 +515,7 @@
 										.html(
 											clickArea = $("<div/>")
 												.css({borderTop:0,borderLeft:0,borderRight:0,width: "100%",height: "15px"})
-												.addClass(localSettings.borderClass+" "+dayBG)
+												.addClass(localSettings.borderClass+" "+localSettings.shadeClass)
 												.html(
 													$("<font/>")
 														.addClass(localSettings.fontColor)
@@ -525,12 +525,13 @@
 										.append(
 											clickArea2 = $("<div/>")
 												.attr({id:"eventBox"+dayCnt})
-												.css({borderTop:0,borderLeft:0,borderRight:0,overFlow: "hidden",width: "100%",height: realCellHeight - 15})
+												.css({borderTop:0,borderLeft:0,borderRight:0,overFlow: "hidden",width: "100%",height: parseInt(realCellHeight - 15)})
 												.addClass("clickarea2 ")
 										)
 								);
-						}else {
+						}else { //small calendar
 							clickArea = curDay
+								.css({height:realCellHeight})
 								.html(
 									$("<font/>")
 										.addClass(localSettings.fontColor)
@@ -568,8 +569,7 @@
 									} 
 								}
 						});
-					}else{
-						//
+					}else{//fillin the data for empty cells
 						curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
 						if (localSettings.largeDisplay === true) {
 							curDay
@@ -589,6 +589,7 @@
 										width: "100%",
 										height: "15px"
 									})
+									.addClass(localSettings.borderClass + " " + localSettings.shadeClass)
 									.html(
 										$("<font/>")
 											.addClass(localSettings.fontColor)
@@ -604,16 +605,15 @@
 										borderRight: 0,
 										overFlow: "hidden",
 										width: "100%",
-										height: realCellHeight - 15
+										height: parseInt(realCellHeight - 15)
 									})
 									.addClass("clickarea2 ")
 								)
 							);
+						}else{
+							//curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
+								curDay.html($("</div>").css({height:realCellHeight}).html("1"));
 						}
-						
-						//
-						
-						
 					}
 					cnt++;
 				}
