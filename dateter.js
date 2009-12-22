@@ -531,11 +531,14 @@
 								);
 						}else { //small calendar
 							clickArea = curDay
-								.css({height:realCellHeight})
 								.html(
-									$("<font/>")
-										.addClass(localSettings.fontColor)
-										.html(dayCnt)
+									$("<div/>")
+										.css({height:realCellHeight})
+										.html(
+											$("<font/>")
+												.addClass(localSettings.fontColor)
+												.html(dayCnt)
+										)
 								);
 						}
 						if (localSettings.pastDayShades) {
@@ -596,7 +599,9 @@
 							);
 						}else{
 							//curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
-								curDay.html($("</div>").css({height:realCellHeight}).html("1"));
+							curDay.html(
+								$("<div/>").css({height:realCellHeight}).html("&nbsp;")
+							);
 						}
 					}
 					cnt++;
