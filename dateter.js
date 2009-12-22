@@ -575,21 +575,11 @@
 							curDay
 								.html($("<div/>")
 								.attr({id: "dayBox" + dayCnt})
-								.css({
-									overflow: "hidden",
-									height: "100%",
-									width: "100%"
-								})
+								.css({overflow: "hidden",height: "100%",width: "100%"})
 								.html(
 									clickArea = $("<div/>")
-									.css({
-										borderTop: 0,
-										borderLeft: 0,
-										borderRight: 0,
-										width: "100%",
-										height: "15px"
-									})
-									.addClass(localSettings.borderClass + " " + localSettings.shadeClass)
+									.css({borderTop: 0,borderLeft: 0,borderRight: 0,width: "100%",height: "16px"})
+									.addClass()
 									.html(
 										$("<font/>")
 											.addClass(localSettings.fontColor)
@@ -599,13 +589,7 @@
 								.append(
 									clickArea2 = $("<div/>")
 									.attr({	id: "eventBox" + dayCnt})
-									.css({
-										borderTop: 0,
-										borderLeft: 0,
-										borderRight: 0,
-										overFlow: "hidden",
-										width: "100%",
-										height: parseInt(realCellHeight - 15)
+									.css({borderTop: 0,borderLeft: 0,borderRight: 0,overFlow: "hidden",	width: "100%",height: parseInt(realCellHeight - 15)
 									})
 									.addClass("clickarea2 ")
 								)
