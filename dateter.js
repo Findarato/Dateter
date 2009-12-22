@@ -147,7 +147,6 @@
 			}
 			jQuery.fn.dateter.drawCalendar(target,target.data("Settings"));
 		}else{//a click calendar
-			
 			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
 			jQuery(target)
 				.click(function(){
@@ -170,9 +169,9 @@
 				.parent()
 				.append(
 					calGlobal = jQuery('<div/>')
-					.addClass(target.data("Settings").backgroundClass+" dateterPopup")
+					.addClass(target.data("Settings").borderClass+" "+target.data("Settings").borderRoundClass+" "+target.data("Settings").backgroundClass+" "+target.data("Settings").shadeClass+" dateterPopup")
 					.attr({id:target.data("Settings").uniqueName})
-					.css({position:"absolute",top:jQuery(target).position.top,left:jQuery(target).position.left,padding:"3px"})
+					.css({position:"absolute",top:jQuery(target).position.top,left:jQuery(target).position.left})
 					.hide()
 			);
 			calGlobal.append(calBox = jQuery('<div/>'));
@@ -343,13 +342,7 @@
 										.html(
 											$("<span/>")
 												.css({fontSize: "9px",fontWeight: "bold"})
-												.html("&nbsp;"
-												/*
-													$("<font/>")
-														.addClass(localSettings.fontColor)
-														.html(item2.timeS + " - " + item2.timeE)
-														*/
-												)
+												.html("&nbsp;")
 										)
 								);
 						});
@@ -422,9 +415,11 @@
 			var calTable = "";
 			if (localSettings.displayHeader) {
 				calHolder
+					.css({textAlign:'center'})
 					.empty()
 					.html(
-						jQuery('<table cellpadding="0" cellspacing="0" style="height:20px;width:' + localSettings.width + ';"/>')
+						jQuery('<table cellpadding="0" cellspacing="0" style="height:20px;width:100%;"/>')
+							.addClass(localSettings.shadeClass)
 							.append(
 								jQuery('<tr/>')
 									.append(
@@ -483,7 +478,7 @@
 			calHolder
 				.append(
 					calTable = jQuery('<table cellpadding="0" cellspacing="0"/>')
-						.css({width: localSettings.width,height: localSettings.height})
+						.css({width: "100%",height: localSettings.height})
 						.attr({id: "calBox" + localSettings.uniqueName})
 				);
 			realCellHeight = $("#calBox" + localSettings.uniqueName).height() / 6;
