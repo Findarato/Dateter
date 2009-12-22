@@ -3,9 +3,22 @@
  * @author Joseph Harry, a.k.a., Mr. Roboto Findarato
  * @version 0.5.0
  * @copyright August 5, 2009 
+ * 
+ * The days to highlight object requires a json object in the following order
+ * {"2010":
+ * 		{"1":
+ * 			{"14":
+ * 				[
+ * 					{"location_name":"Small Meeting room","comment":"","name":"Lassie Come-Home Readers Group","id":"34","location_id":"1","timeS":"14:00","timeE":"15:00"}
+ * 				]
+ * 			}
+ * 		}
+ * }
  */
 (function(jQuery){
-	
+/**
+ * Global variables for dateter.  Most of these can be over written though the options paramater
+ */		
 	var	settings = {
 			'backgroundClass':"calendar-background",
 			'borderStyle':"solid",
@@ -179,6 +192,14 @@
 			heightAdjust=0;
 		}
 	}
+	/**
+	 * Used to actually move the month of the calendar display
+	 * @param {Object} selector
+	 * @param {Object} moveSettings
+	 * @param {Object} target
+	 * @param {int} direction
+	 * @param {Object} drawTarget
+	 */
 	jQuery.fn.dateter.moveMonth = function(selector,moveSettings,target,direction,drawTarget){
 		target.data("Settings",jQuery.extend(true,target.data("Settings"), moveSettings));
 		localsettings = target.data("Settings");
@@ -212,6 +233,10 @@
 				},drawTarget);
 			});
 	}
+	/**
+	 * Draws the calendar highlights
+	 * @param {Object} localSettings
+	 */
 	jQuery.fn.dateter.drawHighlight = function(localSettings){
 			try {dayTest = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];}
 			catch(e){dayTest = false;}
