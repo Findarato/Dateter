@@ -19,6 +19,7 @@
 /**
  * Global variables for dateter.  Most of these can be over written though the options paramater
  */		
+
 	var	settings = {
 			'backgroundClass':"calendar-background",
 			'borderStyle':"solid",
@@ -247,7 +248,7 @@
 						eventBox.empty();
 						ca2 = eventBox.height() - 20;
 						if(ca2<0){ca2=15}
-						//displayAmount = yMath.round(parseInt(ca2) / 20);
+						//displayAmount = Math.round(parseInt(ca2) / 20);
 						displayAmount = 100;
 						var displayCnt = 0;
 						var totalDisplay = 0;
@@ -258,7 +259,6 @@
 								console.log("boxHeight=>"+ca2+":Display amount=>"+displayAmount+":i2=>"+i2);	
 							}
 							*/
-							
 							if (i2 > displayAmount-1) {totalDisplay++;return;	}
 							eventBox
 								.append(
@@ -267,7 +267,6 @@
 										.css("float","left")
 										.css({position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
 										.click(function(){
-											
 											if(item2.name){
 												title = item2.name;
 												note = item2.comment;
@@ -291,7 +290,7 @@
 														position: "absolute",
 														top: position.top+2,
 														left: position.left+2,
-														zIndex:"100"
+														zIndex:"1000"
 													})
 													.attr({id: "eventPopBox"})
 													.html(
@@ -337,9 +336,8 @@
 															)
 													)
 												);
-
 										})
-										.html(
+										.html( 
 											$("<span/>")
 												.css({fontSize: "9px",fontWeight: "bold"})
 												.html("&nbsp;")
@@ -478,7 +476,7 @@
 			calHolder
 				.append(
 					calTable = jQuery('<table cellpadding="0" cellspacing="0"/>')
-						.css({width: "100%",height: localSettings.height})
+						.css({width: localSettings.width,height: localSettings.height})
 						.attr({id: "calBox" + localSettings.uniqueName})
 				);
 			realCellHeight = $("#calBox" + localSettings.uniqueName).height() / 6;
@@ -567,7 +565,7 @@
 									if (localSettings.noClick === false) {
 										target.show()
 										calHolder.parent().fadeOut(300);
-									}
+									} 
 								}
 						});
 					}
