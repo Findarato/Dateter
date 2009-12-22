@@ -7,60 +7,60 @@
 (function(jQuery){
 	
 	var	settings = {
-			backgroundClass:"calendar-background",
-			borderStyle:"solid",
-			borderWidth:"1px",
-			borderClass:"calendar-border",
-			borderColor:"",
-			borderRoundClass:"calendar-corner",
+			'backgroundClass':"calendar-background",
+			'borderStyle':"solid",
+			'borderWidth':"1px",
+			'borderClass':"calendar-border",
+			'borderColor':"",
+			'borderRoundClass':"calendar-corner",
 			
-			calHolder:"",
-			callbackFn:"",
-			cellHeight:0,
-			cellWidth:0,
+			'calHolder':"",
+			'callbackFn':"",
+			'cellHeight':0,
+			'cellWidth':0,
 			
-			daysInMonth:31,
-			dayNames:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-			daysToHighlight:{},
-			displayHeader:true,
+			'daysInMonth':31,
+			'dayNames':["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+			'daysToHighlight':{},
+			'displayHeader':true,
 			
-			fontColor:"calendar-fontColor",
+			'fontColor':"calendar-fontColor",
 			
-			headerSelectors:{title:-1,back:-1,next:-1},
-			height:"500px",
-			highLightColors:["#3EC1FF", "#008FB2", "#FF8B00", "#B22D10", "#FF2000"],
-			highLightToday:false,
-			highLightTodayClass:"calendar-cell-today",
+			'headerSelectors':{'title':-1,'back':-1,'next':-1},
+			'height':"500px",
+			'highLightColors':["#3EC1FF", "#008FB2", "#FF8B00", "#B22D10", "#FF2000"],
+			'highLightToday':false,
+			'highLightTodayClass':"calendar-cell-today",
 			
-			initalFetchMonths:3,
+			'initalFetchMonths':3,
 			
-			largeDisplay:false,
-			leapYear:false,
+			'largeDisplay':false,
+			'leapYear':false,
 			
-			month:-1,
-			monthsMoved:0,
-			monthStartOn:0,
-			monthSwitchFn:"", 
+			'month':-1,
+			'monthsMoved':0,
+			'monthStartOn':0,
+			'monthSwitchFn':"", 
 			
-			name:"",
-			noClick:false,
+			'name':"",
+			'noClick':false,
 
-			pastDayShades:true,
-			position:[], 
-			popUpBackgroundClass:"calendar-cell",
+			'pastDayShades':true,
+			'position':[], 
+			'popUpBackgroundClass':"calendar-cell",
 			
-			showDaynames:false,
-			shadeClass:"calendar-shade",
-			smallDayNames:["S","M","T","W","T","F","S"],
-			startMonth:-1,
-			startofMonth:0,
-			startYear:-1,
+			'showDaynames':false,
+			'shadeClass':"calendar-shade",
+			'smallDayNames':["S","M","T","W","T","F","S"],
+			'startMonth':-1,
+			'startofMonth':0,
+			'startYear':-1,
 			
-			timeSelector:false,
+			'timeSelector':false,
 			
-			uniqueName:"dateter",
-			width:"500px", 
-			year:-1
+			'uniqueName':"dateter",
+			'width':"500px", 
+			'year':-1
 	};
 	var hideme=true;
 	//var monthSwitch;
