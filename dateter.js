@@ -240,6 +240,7 @@
 	 * @param {Object} localSettings
 	 */
 	jQuery.fn.dateter.drawHighlight = function(localSettings){
+			jQuery(".dateterHighlight").replaceWith();
 			try {dayTest = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];}
 			catch(e){dayTest = false;}
 			if (dayTest) {
@@ -266,7 +267,7 @@
 								.css({overflow: "hidden"})
 								.append(
 									$("<div/>")
-										.addClass(localSettings.borderClass+" ui-corner-all")
+										.addClass(localSettings.borderClass+" ui-corner-all dateterHighlight")
 										.css("float","left")
 										.css({position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
 										.click(function(){
