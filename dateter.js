@@ -303,26 +303,39 @@
 																.html(
 																	jQuery("<div/>")
 																		.css({height:"15px"})
-																		.html(title)
-																				.css("float","left")
-																				.css({height:"15px",width:jQuery(this).parent().width()-30,overflow:"hidden"})
-																)
-																.append(
-																	jQuery("<div/>")
-																		.css("float","right")
-																		//.css({position:"absolute",top:"2px",right:"2px"})
 																		.html(
-																			jQuery("<div/>")
-																				.css({height:"10px",width:"10px"})
-																				.html("&nbsp;")
-																				.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.borderRoundClass)
+																			jQuery("<table/>")
+																				.css({height:"15px",width:"100%"})
+																				.html(
+																					jQuery("<tr/>")
+																						.html(
+																							jQuery("<td/>")
+																								.html(
+																									jQuery("<div/>")
+																										.html(title)
+																										.css({height:"15px",overflow:"hidden"})
+																								)
+																								.css({width:"100%"})
+																						)
+																						.append(
+																							jQuery("<td/>")
+																								.html(
+																									jQuery("<div/>")
+																										.css({height:"10px",width:"10px",margin:"2px"})
+																										.html("&nbsp;")
+																										.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.borderRoundClass)
+																										.click(function(){
+																										jQuery("#eventPopBox").replaceWith();//remove the box
+																									})
+																								)
+																								.css({width:"11px"})
+																								
+																						)
+																								
+																				)
 																		)
-																		.click(function(){
-																			jQuery("#eventPopBox").replaceWith();//remove the box
-																		})
+																	)
 																)
-																
-														)
 														.append(
 															jQuery("<div/>")
 																.html(note)
