@@ -564,12 +564,10 @@
 								);
 						}else { //small calendar
 							clickArea = curDay
-								.html(
-									jQuery("<div/>")
-										.css({height:realCellHeight})
-										//.addClass(localSettings.fontColor)
-										.html(dayCnt)
-								);
+								.css({height:realCellHeight})
+								.addClass(localSettings.fontColor)
+								.html(dayCnt)
+								
 						}
 						
 						if (localSettings.pastDayShades) {
@@ -580,7 +578,7 @@
 
 						if(localSettings.highLightToday){
 							if(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year){
-								curDay.addClass(localSettings.highLightTodayClass).css({cursor: "pointer"});
+								curDay.addClass(localSettings.highLightTodayClass).removeClass(localSettings.pastDayShadeClass).css({cursor: "pointer"});
 							}
 						}
 						
