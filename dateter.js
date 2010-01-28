@@ -582,6 +582,12 @@
 							}
 						}
 						
+						if (!localSettings.pastDayShades && !(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year)) {
+							curDay.addClass(localSettings.calendarCell); //fixed a bug with not having past days shade on					
+						}
+						
+						
+						
 						clickArea
 							.click(function(){
 								if (calHolder.data("Settings").callbackFn) {
