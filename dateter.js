@@ -579,8 +579,8 @@
 									jQuery("#Shadow").remove();
 									calHolder.data("Settings")
 											.callbackFn(localSettings.month, jQuery(this).text(), localSettings.year);
-									if (localSettings.noClick === false) {
-										target.show()
+									if (calHolder.data("Settings").noClick === false) {
+										target.show();
 										calHolder.parent().fadeOut(300);
 									} 
 								}
