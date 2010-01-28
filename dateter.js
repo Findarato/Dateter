@@ -32,6 +32,7 @@
 			'callbackFn':"",
 			'cellHeight':0,
 			'cellWidth':0,
+			'calendarCell':'calendar-cell',
 			
 			'daysInMonth':31,
 			'dayNames':["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
@@ -577,7 +578,7 @@
 						}
 						
 						if (localSettings.pastDayShades) {
-							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? "color-off" : "calendar-cell")).css({
+							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? "color-off" : localSettings.calendarCell)).css({
 								cursor: "pointer"
 							});
 						}
