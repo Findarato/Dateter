@@ -575,25 +575,19 @@
 										)
 								);
 						}
+						
 						if (localSettings.pastDayShades) {
 							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? "color-off" : "calendar-cell")).css({
 								cursor: "pointer"
 							});
-						}else {
-							if(localSettings.highLightToday){
-								if(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year){
-									curDay.addClass(localSettings.highLightTodayClass).css({cursor: "pointer"});
-								}else{
-									curDay
-										.addClass("calendar-cell")
-										.css({cursor: "pointer"});
-								}
-							}else{
-								curDay
-									.addClass("calendar-cell")
-									.css({cursor: "pointer"});
+						}
+
+						if(localSettings.highLightToday){
+							if(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year){
+								curDay.addClass(localSettings.highLightTodayClass).css({cursor: "pointer"});
 							}
 						}
+						
 						clickArea
 							.click(function(){
 								if (calHolder.data("Settings").callbackFn) {
