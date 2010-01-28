@@ -269,7 +269,7 @@
 									jQuery("<div/>")
 										.addClass(localSettings.borderClass+" ui-corner-all dateterHighlight")
 										.css("float","left")
-										.css({position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+										.css({position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id]})
 										.click(function(){
 											if(item2.name){
 												title = item2.name;
@@ -297,7 +297,7 @@
 														.html(
 															jQuery("<div/>")
 																.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.borderRoundClass)
-																.css({height:"17px",width:"100%",position:"relative",fontSize:"12px",backgroundColor: localSettings.highLightColors[item2.location_id-1]})
+																.css({height:"17px",width:"100%",position:"relative",fontSize:"12px",backgroundColor: localSettings.highLightColors[item2.location_id]})
 																.html(
 																	jQuery("<div/>")
 																		.css({height:"15px"})
