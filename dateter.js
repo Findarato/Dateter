@@ -19,7 +19,7 @@
 /**
  * Global variables for dateter.  Most of these can be over written though the options paramater
  */		
-
+	var ts = new Date().getTime();
 	var	settings = {
 			'backgroundClass':"calendar-background",
 			'borderStyle':"solid",
@@ -60,6 +60,9 @@
 			'name':"",
 			'noClick':false,
 
+			'offsetX':'0',
+			'offsetY':'0',
+
 			'pastDayShades':true,
 			'pastDayShadeClass':'calendar-pastShade',
 			'position':[], 
@@ -74,7 +77,7 @@
 			
 			'timeSelector':false,
 			
-			'uniqueName':"dateter",
+			'uniqueName':"dateter"+ts,
 			'width':"500px", 
 			'year':-1
 	};
@@ -152,7 +155,11 @@
 			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
 			jQuery(target)
 				.click(function(){
-					jQuery('#'+target.data("Settings").uniqueName).css({position:"absolute",top:jQuery(this).offset().top,left:jQuery(this).offset().left})
+					jQuery('#'+target.data("Settings").uniqueName)
+						.css({position:"absolute",
+							top:parseInt(jQuery(this).offset().top+target.data("Settings").offsetY),
+							left:parseInt(jQuery(this).offset().left+target.data("Settings").offsetX)})
+							
 					Shadow = jQuery("<div style=\" z-index:999999;\" id=\"Shadow\"/>")
 						.click(function(){
 							jQuery(".dateterPopup").fadeOut(200);
