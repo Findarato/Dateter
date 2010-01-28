@@ -79,7 +79,6 @@
 			'year':-1
 	};
 	var hideme=true;
-	//var monthSwitch;
 	/**
 	 * Main part of the script.  Pass it a series of options and a custom call back.
 	 * @param {Object} options
@@ -154,7 +153,6 @@
 			jQuery(target)
 				.click(function(){
 					jQuery('#'+target.data("Settings").uniqueName).css({position:"absolute",top:jQuery(this).offset().top,left:jQuery(this).offset().left})
-					//alert(jQuery(this).position().top);
 					Shadow = jQuery("<div style=\" z-index:999999;\" id=\"Shadow\"/>")
 						.click(function(){
 							jQuery(".dateterPopup").fadeOut(200);
@@ -166,7 +164,6 @@
 				jQuery('body').append(Shadow);
 				jQuery(".dateterPopup").hide();
 				jQuery("#"+target.data("Settings").uniqueName).css("z-index","1000000").show();
-				//target.hide()
 				jQuery("#Shadow").show();
 				
 			});
@@ -253,17 +250,11 @@
 						eventBox.empty();
 						ca2 = eventBox.height() - 20;
 						if(ca2<0){ca2=15}
-						//displayAmount = Math.round(parseInt(ca2) / 20);
 						displayAmount = 100;
 						var displayCnt = 0;
 						var totalDisplay = 0;
 						jQuery.each(item, function(i2, item2){
 							displayCnt++;
-							/*
-							if(console.log){
-								console.log("boxHeight=>"+ca2+":Display amount=>"+displayAmount+":i2=>"+i2);	
-							}
-							*/
 							if (i2 > displayAmount-1) {totalDisplay++;return;	}
 							eventBox
 								.css({overflow: "hidden"})
@@ -289,9 +280,7 @@
 														.css({
 															textAlign:"left",
 															padding: "2px",
-															//minWidth:jQuery(this).parent().innerWidth()-5,
 															minWidth:"150px",
-															//minHeight:$(this).parent().innerHeight()-5,
 															position: "absolute",
 															top: position.top+2,
 															left: position.left+2,
@@ -366,12 +355,10 @@
 												);
 												eventPopBox = jQuery("#eventPopBox");
 												eventBoxShift = jQuery("body").outerWidth()-(eventPopBox.outerWidth()+position.left);
-												//alert(eventPopBox.outerWidth());
 												if(eventBoxShift<0){
 													eventBoxLeft = eventPopBox.position().left;
 													Adjustment = parseInt(eventBoxLeft)+parseInt(eventBoxShift)-5;
 													eventPopBox.css({left:Adjustment});
-													//alert(eventBoxShift+":=>"+eventBoxLeft+":=>"+Adjustment);
 												}
 										})
 										.html( 
@@ -385,7 +372,6 @@
 						//show the +x more and allow the person to see them
 						if (displayCnt > displayAmount) {
 							if(localSettings.borderRound){round = localSettings.borderRoundClass;}else{round = "";}
-							//jQuery("#dayBox"+i)
 							eventBox
 								.append(
 									jQuery("<a/>")
@@ -490,8 +476,6 @@
 									)
 							)
 					);
-			
-				//add the clicks to the headers
 				jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1,target);
 				jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1,target);
 				
@@ -569,25 +553,19 @@
 								.html(dayCnt)
 								
 						}
-						
 						if (localSettings.pastDayShades) {
 							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? localSettings.pastDayShadeClass : localSettings.calendarCell)).css({
 								cursor: "pointer"
 							});
 						}
-
 						if(localSettings.highLightToday){
 							if(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year){
 								curDay.addClass(localSettings.highLightTodayClass).removeClass(localSettings.pastDayShadeClass).css({cursor: "pointer"});
 							}
 						}
-						
 						if (!localSettings.pastDayShades && !(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year)) {
 							curDay.addClass(localSettings.calendarCell); //fixed a bug with not having past days shade on					
 						}
-						
-						
-						
 						clickArea
 							.click(function(){
 								if (calHolder.data("Settings").callbackFn) {
@@ -626,7 +604,6 @@
 								)
 							);
 						}else{
-							//curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
 							curDay.html(
 								jQuery("<div/>").css({height:realCellHeight}).html("&nbsp;")
 							);
