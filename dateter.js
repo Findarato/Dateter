@@ -61,6 +61,7 @@
 			'noClick':false,
 
 			'pastDayShades':true,
+			'pastDayShadeClass':'calendar-pastShade',
 			'position':[], 
 			'popUpBackgroundClass':"calendar-cell",
 			
@@ -551,11 +552,8 @@
 											clickArea = jQuery("<div/>")
 												.css({borderTop:0,borderLeft:0,borderRight:0,width: "100%",height: "15px"})
 												.addClass(localSettings.borderClass+" "+localSettings.shadeClass)
-												.html(
-													jQuery("<font/>")
-														.addClass(localSettings.fontColor)
-														.html(dayCnt)
-												)
+												.addClass(localSettings.fontColor)
+												.html(dayCnt)
 										)
 										.append(
 											clickArea2 = jQuery("<div/>")
@@ -569,16 +567,13 @@
 								.html(
 									jQuery("<div/>")
 										.css({height:realCellHeight})
-										.html(
-											jQuery("<font/>")
-												.addClass(localSettings.fontColor)
-												.html(dayCnt)
-										)
+										//.addClass(localSettings.fontColor)
+										.html(dayCnt)
 								);
 						}
 						
 						if (localSettings.pastDayShades) {
-							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? "color-off" : localSettings.calendarCell)).css({
+							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? localSettings.pastDayShadeClass : localSettings.calendarCell)).css({
 								cursor: "pointer"
 							});
 						}
