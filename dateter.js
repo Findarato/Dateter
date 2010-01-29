@@ -47,7 +47,7 @@
 			'highLightToday':false,
 			'highLightTodayClass':"calendar-cell-today",
 			
-			'initalFetchMonths':3,
+			'initialFetchMonths':3,
 			
 			'largeDisplay':false,
 			'leapYear':false,
@@ -259,13 +259,13 @@
 		} 
 		return $(popUp);
 	}
-	
 	/**
 	 * Draws the calendar highlights
 	 * @param {Object} localSettings
 	 */
-	jQuery.fn.dateter.drawHighlight = function(localSettings){
+	jQuery.fn.dateter.drawHighlight = function(localSettings,run){
 			jQuery(".dateterHighlight").replaceWith();
+			dayTest = false;
 			try {dayTest = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];}
 			catch(e){dayTest = false;}
 			if (dayTest) {
@@ -319,6 +319,7 @@
 										})
 								);
 						});
+						/*
 						if (displayCnt > displayAmount) {
 							if(localSettings.borderRound){round = localSettings.borderRoundClass;}else{round = "";}
 							eventBox
@@ -365,13 +366,21 @@
 										.css({fontSize: "9px",fontWeight: "bold"})
 										.html("&#43;" + (displayCnt - displayAmount) + " More"));
 						}
+						*/
 					}else {
 						smallDay = parseInt(i)+1;
 						jQuery("#" + localSettings.uniqueName + "d" + smallDay)
 							.css({backgroundColor: localSettings.highLightColors[0]});
 					}
 				});
-					
+			}else{ //there is no data for this month
+				if(!run){
+					localSettings.monthSwitchFn(localSettings.month, -1, localSettings.year);
+					jQuery.fn.dateter.drawHighlight(localSettings,true);
+				}else{
+					setTimeout("jQuery.fn.dateter.drawHighlight(localSettings,true)",300);
+										
+				}
 			}
 	}
 	/**
@@ -560,15 +569,19 @@
 					cnt++;
 				}
 			}
-			jQuery.fn.dateter.drawHighlight(calHolder.data("Settings"));
 			if (calHolder.data("Settings").monthSwitchFn) {
-				for(v=0;v<calHolder.data("Settings").initalFetchMonths;v++){
-					var NewYear3 = Date.today().add(calHolder.data("Settings").monthsMoved-v).months().toString("yyyy");
-					var NewMonth3 = Date.today().add(calHolder.data("Settings").monthsMoved-v).months().toString("M");
-					var NewYear2 = Date.today().add(calHolder.data("Settings").monthsMoved+v).months().toString("yyyy");
-					var NewMonth2 = Date.today().add(calHolder.data("Settings").monthsMoved+v).months().toString("M");
-					calHolder.data("Settings").monthSwitchFn(NewMonth2,-1,NewYear2);
-					calHolder.data("Settings").monthSwitchFn(NewMonth3,-1,NewYear3);	
+				if (calHolder.data("Settings").initialFetchMonths == 0) {
+				}else {
+					for (v = 1; v < parseInt(calHolder.data("Settings").initialFetchMonths); v++) {
+						var NewYear3 = Date.today().add(calHolder.data("Settings").monthsMoved - v).months().toString("yyyy");
+						var NewMonth3 = Date.today().add(calHolder.data("Settings").monthsMoved - v).months().toString("M");
+						
+						var NewYear2 = Date.today().add(calHolder.data("Settings").monthsMoved + v).months().toString("yyyy");
+						var NewMonth2 = Date.today().add(calHolder.data("Settings").monthsMoved + v).months().toString("M");
+						
+						calHolder.data("Settings").monthSwitchFn(NewMonth2, -1, NewYear2);
+						calHolder.data("Settings").monthSwitchFn(NewMonth3, -1, NewYear3);
+					}
 				}
 			}
 		};
