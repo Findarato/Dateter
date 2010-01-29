@@ -83,6 +83,7 @@
 			'year':-1
 	};
 	var hideme=true;
+	var Target = "";
 	/**
 	 * Main part of the script.  Pass it a series of options and a custom call back.
 	 * @param {Object} options
@@ -90,6 +91,7 @@
 	 */
  	jQuery.fn.dateter = function(options,custom_callback,custom_monthSwitch){
 		target = jQuery(this);
+		Target = jQuery(this);
 		Settings = jQuery.extend({},settings, options);
 		Settings.callbackFn = custom_callback ? custom_callback : false;
 		Settings.monthSwitchFn = custom_monthSwitch ? custom_monthSwitch : false;
@@ -374,8 +376,6 @@
 					}
 				});
 			}else{ //there is no data for this month
-				localSettings.monthSwitchFn(localSettings.month, -1, localSettings.year);
-				//	jQuery.fn.dateter.drawHighlight(localSettings,true);
 				setTimeout("jQuery.fn.dateter.drawHighlight(localSettings)",300);
 			}
 	}
@@ -568,7 +568,7 @@
 			jQuery.fn.dateter.drawHighlight(localSettings);
 			if (calHolder.data("Settings").monthSwitchFn) {
 				if (calHolder.data("Settings").initialFetchMonths == 0) {
-					localSettings.monthSwitchFn(localSettings.month, -1, localSettings.year);
+					calHolder.data("Settings").monthSwitchFn(localSettings.month, -1, localSettings.year);
 				}else {
 					for (v = 1; v < parseInt(calHolder.data("Settings").initialFetchMonths); v++) {
 						var NewYear3 = Date.today().add(calHolder.data("Settings").monthsMoved - v).months().toString("yyyy");
