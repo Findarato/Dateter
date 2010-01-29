@@ -87,10 +87,6 @@
 	 * @param {Object} options
 	 * @param {Object} custom_callback
 	 */
-	jQuery.fn.hideBox=function(targetBox,speed,that){
-		if(typeof speed != "number"){speed=300;}
-		if(hideme){	jQuery("#"+targetBox).fadeOut(speed);jQuery('#button-date-selector').css('z-index',6);}else{hideme=true;jQuery('#'+that).focus();}
-	}
  	jQuery.fn.dateter = function(options,custom_callback,custom_monthSwitch){
 		target = jQuery(this);
 		Settings = jQuery.extend({},settings, options);
@@ -157,8 +153,8 @@
 				.click(function(){
 					jQuery('#'+target.data("Settings").uniqueName)
 						.css({position:"absolute",
-							top:parseInt(jQuery(this).offset().top+target.data("Settings").offsetY),
-							left:parseInt(jQuery(this).offset().left+target.data("Settings").offsetX)})
+							top:parseInt(jQuery(this).offset().top+parseInt(target.data("Settings").offsetY)),
+							left:parseInt(jQuery(this).offset().left+parseInt(target.data("Settings").offsetX))});
 							
 					Shadow = jQuery("<div style=\" z-index:999999;\" id=\"Shadow\"/>")
 						.click(function(){
@@ -397,7 +393,7 @@
 														height:"auto",
 														position: "absolute",
 														top: position.top+2,
-														left: position.left+2,
+														left: position.left+2
 													})
 													.attr({id: "eventPopBox"})
 													.html(
@@ -605,8 +601,7 @@
 								.append(
 									clickArea2 = jQuery("<div/>")
 									.attr({	id: "eventBox" + dayCnt})
-									.css({borderTop: 0,borderLeft: 0,borderRight: 0,overFlow: "hidden",	width: "100%",height: parseInt(realCellHeight - 15)
-									})
+									.css({borderTop: 0,borderLeft: 0,borderRight: 0,overFlow: "hidden",	width: "100%",height: parseInt(realCellHeight - 15)})
 									.addClass("clickarea2 ")
 								)
 							);
