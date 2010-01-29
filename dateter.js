@@ -20,7 +20,7 @@
  * Global variables for dateter.  Most of these can be over written though the options paramater
  */		
 	var ts = new Date().getTime();
-	var	settings = {
+	var	settings = { 
 			'backgroundClass':"calendar-background",
 			'borderStyle':"solid",
 			'borderWidth':"1px",
@@ -47,7 +47,7 @@
 			'highLightToday':false,
 			'highLightTodayClass':"calendar-cell-today",
 			
-			'initialFetchMonths':3,
+			'initialFetchMonths':0,
 			
 			'largeDisplay':false,
 			'leapYear':false,
@@ -263,7 +263,7 @@
 	 * Draws the calendar highlights
 	 * @param {Object} localSettings
 	 */
-	jQuery.fn.dateter.drawHighlight = function(localSettings,run){
+	jQuery.fn.dateter.drawHighlight = function(localSettings){
 			jQuery(".dateterHighlight").replaceWith();
 			dayTest = false;
 			try {dayTest = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];}
@@ -374,13 +374,9 @@
 					}
 				});
 			}else{ //there is no data for this month
-				if(!run){
-					localSettings.monthSwitchFn(localSettings.month, -1, localSettings.year);
-					jQuery.fn.dateter.drawHighlight(localSettings,true);
-				}else{
-					setTimeout("jQuery.fn.dateter.drawHighlight(localSettings,true)",300);
-										
-				}
+				localSettings.monthSwitchFn(localSettings.month, -1, localSettings.year);
+				//	jQuery.fn.dateter.drawHighlight(localSettings,true);
+				setTimeout("jQuery.fn.dateter.drawHighlight(localSettings)",300);
 			}
 	}
 	/**
@@ -569,8 +565,10 @@
 					cnt++;
 				}
 			}
+			jQuery.fn.dateter.drawHighlight(localSettings);
 			if (calHolder.data("Settings").monthSwitchFn) {
 				if (calHolder.data("Settings").initialFetchMonths == 0) {
+					localSettings.monthSwitchFn(localSettings.month, -1, localSettings.year);
 				}else {
 					for (v = 1; v < parseInt(calHolder.data("Settings").initialFetchMonths); v++) {
 						var NewYear3 = Date.today().add(calHolder.data("Settings").monthsMoved - v).months().toString("yyyy");
