@@ -67,7 +67,7 @@
 			'pastDayShadeClass':'calendar-pastShade',
 			'position':[], 
 			'popUpBackgroundClass':"calendar-cell",
-			'popUpBox':'<div style="background-Color:replace-color">replace-title replace-startTime replace-startTime replace-note replace-location<div id="popUpCloseButton" style="height:10px;width:10px;background-Color:replace-color"></div></div>',
+			'popUpBox':'<div style="background-Color:replace-color">replace-title replace-startTime replace-startTime replace-note replace-location<div id="popUpCloseButton" style="height:10px;width:10px;background-Color:#000;border:1px #00000 solid;"></div></div>',
 			
 			'showDaynames':false,
 			'shadeClass':"calendar-shade",
@@ -258,8 +258,13 @@
 				popUp=popUp.replace(keys[v_Key],data[v_Key]);
 				
 			}
-		} 
-		return $(popUp);
+		}
+		popUp = $(popUp).attr("id","eventPopBox").addClass("eventPopBoxCSS");
+		popUp.find("#popUpCloseButton").click(function(){
+				jQuery(".eventPopBoxCSS").replaceWith("");
+				jQuery("#eventPopBox").replaceWith("");
+		});
+		return popUp;
 	}
 	/**
 	 * Draws the calendar highlights
@@ -287,36 +292,37 @@
 							eventBox
 								.css({overflow: "hidden"})
 								.append(
-									jQuery("<div/>")
+									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i})
 										.addClass(localSettings.borderClass+" ui-corner-all dateterHighlight")
 										.css("float","left")
-										.css({position:"relative",textAlign: "left",height: "15px",overflow: "hidden",padding: "2px",margin: "2px",width: "15px",backgroundColor: localSettings.highLightColors[item2.location_id]})
+										.css({"textAlign": "left","height": "15px","overflow": "hidden","padding": "2px","margin": "2px","width": "15px","backgroundColor": localSettings.highLightColors[item2.location_id]})
 										.click(function(){
-											jQuery("#eventPopBox").replaceWith();
-											position = jQuery(this).position();
-											eventBox
+											jQuery(".eventPopBoxCSS").replaceWith("");
+											position = jQuery(this).offset();
+											jQuery("body")
 												.append(
 													popBox = jQuery.fn.dateter.createPopupbox(localSettings.popUpBox,
-																{title:item2.name,
-																note:item2.comment,
-																location:item2.location_name,
-																color:localSettings.highLightColors[item2.location_id],
-																startTime:item2.timeS,
-																endTime:item2.timeE
+																{"title":item2.name,
+																"note":item2.comment,
+																"location":item2.location_name,
+																"color":localSettings.highLightColors[item2.location_id],
+																"startTime":item2.timeS,
+																"endTime":item2.timeE
 																}
 																
 													)
 												)
-												jQuery("#popUpCloseButton").click(function(){jQuery("#eventPopBox").replaceWith()});
-												popBox.attr("id","eventPopBox").css({position: "absolute",top: position.top+2,left: position.left+2,zIndex:500});
+												popBox.css({"position": "absolute","top": position.top,"left": position.left,"zIndex":500});
+												
+												
 												
 											//to make sure the box is not off the screen												
-											eventPopBox = jQuery("#eventPopBox");
-											eventBoxShift = jQuery("body").outerWidth()-(eventPopBox.outerWidth()+position.left);
+											//eventPopBox = jQuery("#eventPopBox");
+											eventBoxShift = jQuery("body").outerWidth()-(popBox.outerWidth()+position.left);
 											if(eventBoxShift<0){
-												eventBoxLeft = eventPopBox.position().left;
+												eventBoxLeft = popBox.position().left;
 												Adjustment = parseInt(eventBoxLeft)+parseInt(eventBoxShift)-5;
-												eventPopBox.css({left:Adjustment});
+												popBox.css({left:Adjustment});
 											}	
 										})
 								);
