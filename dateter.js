@@ -313,11 +313,6 @@
 													)
 												)
 												popBox.css({"position": "absolute","top": position.top,"left": position.left,"zIndex":500});
-												
-												
-												
-											//to make sure the box is not off the screen												
-											//eventPopBox = jQuery("#eventPopBox");
 											eventBoxShift = jQuery("body").outerWidth()-(popBox.outerWidth()+position.left);
 											if(eventBoxShift<0){
 												eventBoxLeft = popBox.position().left;
