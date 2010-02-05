@@ -46,7 +46,7 @@
 			"highLightColors":["#3EC1FF", "#008FB2", "#FF8B00", "#B22D10", "#FF2000"],
 			"highLightToday":false,
 			"highLightTodayClass":"calendar-cell-today",
-			"highLightSize":"15px",
+			"highLightSize":"14px",
 			
 			"initialFetchMonths":0,
 			
@@ -294,7 +294,7 @@
 								.css({overflow: "hidden"})
 								.append(
 									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i})
-										.addClass(localSettings.borderClass+" ui-corner-all dateterHighlight")
+										.addClass(localSettings.borderClass+" "+localSettings.borderRoundClass+"  dateterHighlight")
 										.css("float","left")
 										.css({"textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
 										.click(function(){
