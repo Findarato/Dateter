@@ -317,7 +317,7 @@
 											if(eventBoxShift<0){
 												eventBoxLeft = popBox.position().left;
 												Adjustment = parseInt(eventBoxLeft)+parseInt(eventBoxShift)-5;
-												popBox.css({left:Adjustment});
+												popBox.css({"left":Adjustment});
 											}	
 										})
 								);
@@ -373,7 +373,7 @@
 					}else {
 						smallDay = parseInt(i)+1;
 						jQuery("#" + localSettings.uniqueName + "d" + smallDay)
-							.css({backgroundColor: localSettings.highLightColors[0]});
+							.css({"backgroundColor": localSettings.highLightColors[0]});
 					}
 				});
 			}else{ //there is no data for this month
@@ -388,7 +388,6 @@
 	jQuery.fn.dateter.drawCalendar = function(calHolder, settings, target){
 			localSettings = jQuery.extend(true,calHolder.data("Settings"), settings);
 			calHolder.data("Settings", localSettings);
-			//localSettings.height = "270px";
 			var calTable = "";
 			if (localSettings.displayHeader) {
 				calHolder
@@ -444,7 +443,7 @@
 						.html(
 							Date
 								.today()
-								.set({month: parseInt(localSettings.month) -1})
+								.set({"month": parseInt(localSettings.month) -1})
 								.toString("MMMM") + " " + localSettings.year
 					);
 				}
@@ -477,12 +476,13 @@
 				for (var b = 0; b < 7; b++) {//X
 					jQuery("#" + localSettings.uniqueName + "w" + a)
 						.append(
-							jQuery('<td id="' + localSettings.uniqueName + 'd' + cnt + '"/>"')
+							jQuery("<td/>")
+							.attr({"id":localSettings.uniqueName + 'd' + cnt })
 							.css({
-								fontSize: "11px",
-								textAlign: "center",
-								width: localSettings.cellWidth,
-								height: localSettings.cellHeight
+								"fontSize": "11px",
+								"textAlign": "center",
+								"width": localSettings.cellWidth,
+								"height": localSettings.cellHeight
 							})
 						);
 					var a_Pass = new Array();
@@ -498,13 +498,12 @@
 							curDay
 								.html(
 									jQuery("<div/>")
-										.attr({id:"dayBox"+dayCnt})
-										.css({overflow: "hidden",height: "100%",width: "100%"})
+										.attr({"id":"dayBox"+dayCnt})
+										.css({"overflow": "hidden","height": "100%","width": "100%"})
 										.html(
 											clickArea = jQuery("<div/>")
-												.css({borderTop:0,borderLeft:0,borderRight:0,width: "100%",height: "15px"})
-												.addClass(localSettings.borderClass+" "+localSettings.shadeClass)
-												.addClass(localSettings.fontColor)
+												.css({"borderTop":0,"borderLeft":0,"borderRight":0,"width": "100%","height": "15px"})
+												.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.fontColor)
 												.html(dayCnt)
 										)
 										.append(
@@ -516,19 +515,17 @@
 								);
 						}else { //small calendar
 							clickArea = curDay
-								.css({height:realCellHeight})
+								.css({"height":realCellHeight})
 								.addClass(localSettings.fontColor)
 								.html(dayCnt)
 								
 						}
 						if (localSettings.pastDayShades) {
-							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? localSettings.pastDayShadeClass : localSettings.calendarCell)).css({
-								cursor: "pointer"
-							});
+							curDay.addClass(((a_Pass[1] || a_Pass[2] || a_Pass[3]) ? localSettings.pastDayShadeClass : localSettings.calendarCell)).css({"cursor": "pointer"});
 						}
 						if(localSettings.highLightToday){
 							if(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year){
-								curDay.addClass(localSettings.highLightTodayClass).removeClass(localSettings.pastDayShadeClass).css({cursor: "pointer"});
+								curDay.addClass(localSettings.highLightTodayClass).removeClass(localSettings.pastDayShadeClass).css({"cursor": "pointer"});
 							}
 						}
 						if (!localSettings.pastDayShades && !(Date.today().toString("d") == dayCnt && Date.today().toString("M") == localsettings.month && Date.today().toString("yyyy") == localsettings.year)) {
@@ -551,11 +548,11 @@
 						if (localSettings.largeDisplay === true) {
 							curDay
 								.html(jQuery("<div/>")
-								.attr({id: "dayBox" + dayCnt})
-								.css({overflow: "hidden",height: "100%",width: "100%"})
+								.attr({"id": "dayBox" + dayCnt})
+								.css({"overflow": "hidden","height": "100%","width": "100%"})
 								.html(
 									clickArea = jQuery("<div/>")
-									.css({borderTop: 0,borderLeft: 0,borderRight: 0,width: "100%",height: "16px"})
+									.css({"borderTop": 0,"borderLeft": 0,"borderRight": 0,"width": "100%","height": "16px"})
 									.addClass()
 									.html(
 										jQuery("<font/>")
@@ -565,14 +562,14 @@
 								)
 								.append(
 									clickArea2 = jQuery("<div/>")
-									.attr({	id: "eventBox" + dayCnt})
-									.css({borderTop: 0,borderLeft: 0,borderRight: 0,overFlow: "hidden",	width: "100%",height: parseInt(realCellHeight - 15)})
+									.attr({	"id": "eventBox" + dayCnt})
+									.css({"borderTop": 0,"borderLeft": 0,"borderRight": 0,"overFlow": "hidden",	"width": "100%","height": parseInt(realCellHeight - 15)})
 									.addClass("clickarea2 ")
 								)
 							);
 						}else{
 							curDay.html(
-								jQuery("<div/>").css({height:realCellHeight}).html("&nbsp;")
+								jQuery("<div/>").css({"height":realCellHeight}).html("&nbsp;")
 							);
 						}
 					}
@@ -582,6 +579,7 @@
 			jQuery.fn.dateter.drawHighlight(localSettings);
 			if (calHolder.data("Settings").monthSwitchFn) {
 				if (calHolder.data("Settings").initialFetchMonths == 0) {
+					alert(calHolder.data("Settings").initialFetchMonths);
 					calHolder.data("Settings").monthSwitchFn(localSettings.month, -1, localSettings.year);
 				}else {
 					for (v = 1; v < parseInt(calHolder.data("Settings").initialFetchMonths); v++) {
