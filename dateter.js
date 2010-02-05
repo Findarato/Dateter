@@ -449,15 +449,25 @@
 			var cnt = 0;
 			var dayCnt = 0;
 			var monthStart = false;
+			var correctedHeight = 0;
+			if (localSettings.displayHeader) {
+				realCellHeight = parseInt(parseInt(localSettings.height)-20) / 6;
+				realCellHeight--; //hopefuly fix the 6 row scroll bar
+				correctedHeight = localSettings.height-20;
+			}else{
+				realCellHeight = parseInt(localSettings.height) / 6;
+				realCellHeight--; //hopefuly fix the 6 row scroll bar
+				correctedHeight = localSettings.height;
+			}
 			calHolder
 				.append(
 					calTable = jQuery('<table cellpadding="0" cellspacing="0" border="1"/>')
-						.css({width: localSettings.width,height: localSettings.height})
+						.css({"width": localSettings.width,"height": correctedHeight})
 						.addClass(localSettings.borderClass)
-						.attr({id: "calBox" + localSettings.uniqueName})
+						.attr({"id": "calBox" + localSettings.uniqueName})
 				);
-			realCellHeight = parseInt(localSettings.height) / 6;
-			realCellHeight--; //hopefuly fix the 6 row scroll bar
+
+			//alert(localSettings.height+"=>"+realCellHeight);
 			calTable.empty();
 			for (var a = 0; a < 6; a++) {//Y
 				calTable.append(jQuery('<tr id="' + localSettings.uniqueName + 'w' + a + '"/>'));
@@ -497,7 +507,8 @@
 										.append(
 											clickArea2 = jQuery("<div/>")
 												.attr({id:"eventBox"+dayCnt})
-												.css({borderTop:0,borderLeft:0,borderRight:0,overFlow: "hidden",width: "100%",height: parseInt(realCellHeight - 15)})
+												.css({"borderTop":0,"borderLeft":0,"borderRight":0,"overFlow": "hidden","width": "100%","height": parseInt(realCellHeight - 15)})
+
 												.addClass("clickarea2 ")
 										)
 								);
