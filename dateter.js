@@ -292,7 +292,7 @@
 							eventBox
 								.css({overflow: "hidden"})
 								.append(
-									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i})
+									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i,"name":item2.name})
 										.addClass(localSettings.borderClass+" "+localSettings.borderRoundClass+"  dateterHighlight")
 										.css("float","left")
 										.css({"textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
@@ -379,6 +379,12 @@
 			}else{ //there is no data for this month
 				setTimeout("jQuery.fn.dateter.drawHighlight(localSettings)",300);
 			}
+	}
+	jQuery.fn.dateter.resize = function(newHeight,target){
+		$("#calBox"+target.data("Settings").uniqueName)
+			.css({height: newHeight})
+			.find(".clickarea2")
+				.css({height: (newHeight / 6) - 15});
 	}
 	/**
 	 * This area allows the calendar to be redrawn each time some one clicks back and forward on the calendar buttons
@@ -468,8 +474,6 @@
 						.addClass(localSettings.borderClass)
 						.attr({"id": "calBox" + localSettings.uniqueName})
 				);
-
-			//alert(localSettings.height+"=>"+realCellHeight);
 			calTable.empty();
 			for (var a = 0; a < 6; a++) {//Y
 				calTable.append(jQuery('<tr id="' + localSettings.uniqueName + 'w' + a + '"/>'));
@@ -579,7 +583,6 @@
 			jQuery.fn.dateter.drawHighlight(localSettings);
 			if (calHolder.data("Settings").monthSwitchFn) {
 				if (calHolder.data("Settings").initialFetchMonths == 0) {
-					alert(calHolder.data("Settings").initialFetchMonths);
 					calHolder.data("Settings").monthSwitchFn(localSettings.month, -1, localSettings.year);
 				}else {
 					for (v = 1; v < parseInt(calHolder.data("Settings").initialFetchMonths); v++) {
