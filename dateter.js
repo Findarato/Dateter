@@ -44,9 +44,9 @@
 			"headerSelectors":{"title":-1,"back":-1,"next":-1},
 			"height":"500px",
 			"highLightColors":["#3EC1FF", "#008FB2", "#FF8B00", "#B22D10", "#FF2000"],
+			"highLightSize":"14px",
 			"highLightToday":false,
 			"highLightTodayClass":"calendar-cell-today",
-			"highLightSize":"14px",
 			
 			"initialFetchMonths":0,
 			
@@ -242,7 +242,6 @@
 				},drawTarget);
 			});
 	}
-	
 	jQuery.fn.dateter.createPopupbox = function(template,data){
 		var keys = {
 			title:"replace-title",
@@ -389,7 +388,7 @@
 	jQuery.fn.dateter.drawCalendar = function(calHolder, settings, target){
 			localSettings = jQuery.extend(true,calHolder.data("Settings"), settings);
 			calHolder.data("Settings", localSettings);
-			localSettings.height = "270px";
+			//localSettings.height = "270px";
 			var calTable = "";
 			if (localSettings.displayHeader) {
 				calHolder
@@ -512,7 +511,6 @@
 											clickArea2 = jQuery("<div/>")
 												.attr({id:"eventBox"+dayCnt})
 												.css({"borderTop":0,"borderLeft":0,"borderRight":0,"overFlow": "hidden","width": "100%","height": parseInt(realCellHeight - 15)})
-
 												.addClass("clickarea2 ")
 										)
 								);
