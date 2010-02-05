@@ -292,7 +292,7 @@
 							eventBox
 								.css({overflow: "hidden"})
 								.append(
-									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i,"name":item2.name})
+									jQuery("<div/>",{"id":"cs-"+item2.id,"name":item2.name})
 										.addClass(localSettings.borderClass+" "+localSettings.borderRoundClass+"  dateterHighlight")
 										.css({"float":"left","textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
 										.click(function(){
