@@ -294,8 +294,7 @@
 								.append(
 									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i,"name":item2.name})
 										.addClass(localSettings.borderClass+" "+localSettings.borderRoundClass+"  dateterHighlight")
-										.css("float","left")
-										.css({"textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
+										.css({"float":"left","textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
 										.click(function(){
 											jQuery(".eventPopBoxCSS").replaceWith("");
 											position = jQuery(this).offset();
@@ -309,11 +308,10 @@
 																"startTime":item2.timeS,
 																"endTime":item2.timeE
 																}
-																
 													)
 												)
 												popBox.css({"position": "absolute","top": position.top,"left": position.left,"zIndex":500});
-											eventBoxShift = jQuery("body").outerWidth()-(popBox.outerWidth()+position.left);
+												eventBoxShift = jQuery("body").outerWidth()-(popBox.outerWidth()+position.left);
 											if(eventBoxShift<0){
 												eventBoxLeft = popBox.position().left;
 												Adjustment = parseInt(eventBoxLeft)+parseInt(eventBoxShift)-5;
