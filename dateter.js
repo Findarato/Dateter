@@ -157,9 +157,9 @@
 			jQuery(target)
 				.click(function(){
 					jQuery("#"+target.data("Settings").uniqueName)
-						.css({position:"absolute",
-							top:parseInt(jQuery(this).offset().top+parseInt(target.data("Settings").offsetY)),
-							left:parseInt(jQuery(this).offset().left+parseInt(target.data("Settings").offsetX))});
+						.css({"position":"absolute",
+							"top":parseInt(jQuery(this).offset().top+parseInt(target.data("Settings").offsetY)),
+							"left":parseInt(jQuery(this).offset().left+parseInt(target.data("Settings").offsetX))});
 							
 					Shadow = jQuery("<div style=\" z-index:999999;\" id=\"Shadow\"/>")
 						.click(function(){
@@ -167,7 +167,7 @@
 							jQuery("#Shadow").remove();
 							target.show()
 						})
-						.css({display:"block",top:0,left:0,height:jQuery("body").height(),width:jQuery("body").width(),position:"absolute"})
+						.css({"display":"block","top":0,"left":0,"height":jQuery("body").height(),"width":jQuery("body").width(),"position":"absolute"})
 						.hide();
 				jQuery("body").append(Shadow);
 				jQuery(".dateterPopup").hide();
@@ -231,14 +231,14 @@
 					var NewMonthStart = jQuery.fn.keyInArray(Date.parse(parseInt(NewMonth) + "/1/" + NewYear).toString("dddd"), target.data("Settings").dayNames);
 				}
 				jQuery.fn.dateter.drawCalendar(target, {
-					height:target.data("Settings").height,
-					monthName:Date.today().set({month: parseInt(NewMonth) - 1}).toString("MMMM") + " " + NewYear,
-					year: NewYear,
-					monthsMoved: target.data("Settings").monthsMoved,
-					month: NewMonth,
-					startofMonth: NewMonthStart,
-					daysToHighlight:target.data("Settings").daysToHighlight,
-					daysInMonth: Date.getDaysInMonth(NewYear, NewMonth - 1)
+					"height":target.data("Settings").height,
+					"monthName":Date.today().set({month: parseInt(NewMonth) - 1}).toString("MMMM") + " " + NewYear,
+					"year": NewYear,
+					"monthsMoved": target.data("Settings").monthsMoved,
+					"month": NewMonth,
+					"startofMonth": NewMonthStart,
+					"daysToHighlight":target.data("Settings").daysToHighlight,
+					"daysInMonth": Date.getDaysInMonth(NewYear, NewMonth - 1)
 				},drawTarget);
 			});
 	}
