@@ -378,11 +378,16 @@
 				setTimeout("jQuery.fn.dateter.drawHighlight(localSettings)",300);
 			}
 	}
+	/**
+	 * A simple way to resize the calendar with out having to redraw it, and thus reget all the data.
+	 * @param int newHeight the hight of the calendar
+	 * @param {Object} target the jQuery selector of the calendar
+	 */
 	jQuery.fn.dateter.resize = function(newHeight,target){
 		$("#calBox"+target.data("Settings").uniqueName)
-			.css({height: newHeight})
+			.css({"height": newHeight})
 			.find(".clickarea2")
-				.css({height: (newHeight / 6) - 15});
+				.css({"height": (newHeight / 6) - 15});
 	}
 	/**
 	 * This area allows the calendar to be redrawn each time some one clicks back and forward on the calendar buttons
@@ -395,10 +400,11 @@
 			var calTable = "";
 			if (localSettings.displayHeader) {
 				calHolder
-					.css({textAlign:"center"})
+					.css({"textAlign":"center"})
 					.empty()
 					.html(
-						jQuery("<table cellpadding=\"0\" cellspacing=\"0\" style=\"height:20px;width:100%;\"/>")
+						jQuery("<table cellpadding=\"0\" cellspacing=\"0\"/>")
+							.css({"height":"20px","width":"100%"})
 							.addClass(localSettings.shadeClass)
 							.append(
 								jQuery("<tr/>")
