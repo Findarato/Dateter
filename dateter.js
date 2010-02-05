@@ -21,66 +21,67 @@
  */		
 	var ts = new Date().getTime();
 	var	settings = { 
-			'backgroundClass':"calendar-background",
-			'borderStyle':"solid",
-			'borderWidth':"1px",
-			'borderClass':"calendar-border",
-			'borderColor':"",
-			'borderRoundClass':"calendar-corner",
+			"backgroundClass":"calendar-background",
+			"borderStyle":"solid",
+			"borderWidth":"1px",
+			"borderClass":"calendar-border",
+			"borderColor":"",
+			"borderRoundClass":"calendar-corner",
 			
-			'calHolder':"",
-			'callbackFn':"",
-			'cellHeight':0,
-			'cellWidth':0,
-			'calendarCell':'calendar-cell',
+			"calHolder":"",
+			"callbackFn":"",
+			"cellHeight":0,
+			"cellWidth":0,
+			"calendarCell":"calendar-cell",
 			
-			'daysInMonth':31,
-			'dayNames':["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-			'daysToHighlight':{},
-			'displayHeader':true,
+			"daysInMonth":31,
+			"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+			"daysToHighlight":{},
+			"displayHeader":true,
 			
-			'fontColor':"calendar-fontColor",
+			"fontColor":"calendar-fontColor",
 			
-			'headerSelectors':{'title':-1,'back':-1,'next':-1},
-			'height':"500px",
-			'highLightColors':["#3EC1FF", "#008FB2", "#FF8B00", "#B22D10", "#FF2000"],
-			'highLightToday':false,
-			'highLightTodayClass':"calendar-cell-today",
+			"headerSelectors":{"title":-1,"back":-1,"next":-1},
+			"height":"500px",
+			"highLightColors":["#3EC1FF", "#008FB2", "#FF8B00", "#B22D10", "#FF2000"],
+			"highLightToday":false,
+			"highLightTodayClass":"calendar-cell-today",
+			"highLightSize":"15px",
 			
-			'initialFetchMonths':0,
+			"initialFetchMonths":0,
 			
-			'largeDisplay':false,
-			'leapYear':false,
+			"largeDisplay":false,
+			"leapYear":false,
 			
-			'month':-1,
-			'monthsMoved':0,
-			'monthStartOn':0,
-			'monthSwitchFn':"", 
+			"month":-1,
+			"monthsMoved":0,
+			"monthStartOn":0,
+			"monthSwitchFn":"", 
 			
-			'name':"",
-			'noClick':false,
+			"name":"",
+			"noClick":false,
 
-			'offsetX':'0',
-			'offsetY':'0',
+			"offsetX":"0",
+			"offsetY":"0",
 
-			'pastDayShades':true,
-			'pastDayShadeClass':'calendar-pastShade',
-			'position':[], 
-			'popUpBackgroundClass':"calendar-cell",
-			'popUpBox':'<div style="background-Color:replace-color">replace-title replace-startTime replace-startTime replace-note replace-location<div id="popUpCloseButton" style="height:10px;width:10px;background-Color:#000;border:1px #00000 solid;"></div></div>',
+			"pastDayShades":true,
+			"pastDayShadeClass":"calendar-pastShade",
+			"position":[], 
+			"popUpBackgroundClass":"calendar-cell",
+			"popUpBox":"<div style='background-Color:replace-color'>replace-title replace-startTime replace-startTime replace-note replace-location<div id='popUpCloseButton' style='height:10px;width:10px;background-Color:#000;border:1px #00000 solid;'></div></div>",
 			
-			'showDaynames':false,
-			'shadeClass':"calendar-shade",
-			'smallDayNames':["S","M","T","W","T","F","S"],
-			'startMonth':-1,
-			'startofMonth':0,
-			'startYear':-1,
+			"showDaynames":false,
+			"shadeClass":"calendar-shade",
+			"smallDayNames":["S","M","T","W","T","F","S"],
+			"startMonth":-1,
+			"startofMonth":0,
+			"startYear":-1,
 			
-			'timeSelector':false,
+			"timeSelector":false,
 			
-			'uniqueName':"dateter"+ts,
-			'width':"500px", 
-			'year':-1
+			"uniqueName":"dateter"+ts,
+			"width":"500px", 
+			"year":-1
 	};
 	var hideme=true;
 	var Target = "";
@@ -133,7 +134,7 @@
 				settingsHold.width="100%";
 				target.data("Settings",settingsHold);
 				if (target.data("Settings").headerSelectors.title != -1) {
-					target.empty().html(jQuery('<table/>'));
+					target.empty().html(jQuery("<table/>"));
 					if (target.data("Settings").headerSelectors.next != -1) {
 						jQuery.fn.dateter.moveMonth(
 							target.data("Settings").headerSelectors.next, 
@@ -152,10 +153,10 @@
 			}
 			jQuery.fn.dateter.drawCalendar(target,target.data("Settings"));
 		}else{//a click calendar
-			jQuery('#'+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
+			jQuery("#"+target.data("Settings").uniqueName).replaceWith();//remove any calBoxes that are around
 			jQuery(target)
 				.click(function(){
-					jQuery('#'+target.data("Settings").uniqueName)
+					jQuery("#"+target.data("Settings").uniqueName)
 						.css({position:"absolute",
 							top:parseInt(jQuery(this).offset().top+parseInt(target.data("Settings").offsetY)),
 							left:parseInt(jQuery(this).offset().left+parseInt(target.data("Settings").offsetX))});
@@ -166,9 +167,9 @@
 							jQuery("#Shadow").remove();
 							target.show()
 						})
-						.css({display:"block",top:0,left:0,height:jQuery('body').height(),width:jQuery('body').width(),position:"absolute"})
+						.css({display:"block",top:0,left:0,height:jQuery("body").height(),width:jQuery("body").width(),position:"absolute"})
 						.hide();
-				jQuery('body').append(Shadow);
+				jQuery("body").append(Shadow);
 				jQuery(".dateterPopup").hide();
 				jQuery("#"+target.data("Settings").uniqueName).css("z-index","1000000").show();
 				jQuery("#Shadow").show();
@@ -177,13 +178,13 @@
 			//Add a shadow box
 			jQuery("body")
 				.append(
-					calGlobal = jQuery('<div/>')
+					calGlobal = jQuery("<div/>")
 					.addClass(target.data("Settings").borderClass+" "+target.data("Settings").borderRoundClass+" "+target.data("Settings").backgroundClass+" "+target.data("Settings").shadeClass+" dateterPopup")
 					.attr({id:target.data("Settings").uniqueName})
 					.hide()
 			);
 			
-			calGlobal.append(calBox = jQuery('<div/>'));
+			calGlobal.append(calBox = jQuery("<div/>"));
 			if(target.data("Settings").timeSelector){
 				calGlobal.append(
 					jQuery("<div/>")
@@ -295,7 +296,7 @@
 									jQuery("<div/>",{"id":"colorSquare"+i2+"-"+i})
 										.addClass(localSettings.borderClass+" ui-corner-all dateterHighlight")
 										.css("float","left")
-										.css({"textAlign": "left","height": "15px","overflow": "hidden","padding": "2px","margin": "2px","width": "15px","backgroundColor": localSettings.highLightColors[item2.location_id]})
+										.css({"textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
 										.click(function(){
 											jQuery(".eventPopBoxCSS").replaceWith("");
 											position = jQuery(this).offset();
@@ -388,19 +389,21 @@
 	jQuery.fn.dateter.drawCalendar = function(calHolder, settings, target){
 			localSettings = jQuery.extend(true,calHolder.data("Settings"), settings);
 			calHolder.data("Settings", localSettings);
+			localSettings.height = "270px";
 			var calTable = "";
 			if (localSettings.displayHeader) {
 				calHolder
-					.css({textAlign:'center'})
+					.css({textAlign:"center"})
 					.empty()
 					.html(
-						jQuery('<table cellpadding="0" cellspacing="0" style="height:20px;width:100%;"/>')
+						jQuery("<table cellpadding=\"0\" cellspacing=\"0\" style=\"height:20px;width:100%;\"/>")
 							.addClass(localSettings.shadeClass)
 							.append(
-								jQuery('<tr/>')
+								jQuery("<tr/>")
 									.append(
-										jQuery('<td id="' + localSettings.uniqueName + 'calBackMonth" style="text-align:center; width:20px;"/>')
-											.css({cursor: "pointer"})
+										jQuery("<td/>")
+											.attr({"id":localSettings.uniqueName + "calBackMonth"})
+											.css({"text-align":"center", "width":"20px","cursor": "pointer"})
 											.html(
 												jQuery("<font/>")
 													.addClass(localSettings.fontColor)
@@ -421,8 +424,9 @@
 											)
 									)
 									.append(
-										jQuery('<td id="' + localSettings.uniqueName + 'calNextMonth" style="text-align:center; width:20px;"/>')
-											.css({cursor: "pointer"})
+										jQuery("<td/>")
+											.attr({"id":localSettings.uniqueName + "calNextMonth"})
+											.css({"text-align":"center", "width":"20px","cursor": "pointer"})
 											.html(
 												jQuery("<font/>")
 													.addClass(localSettings.fontColor)
