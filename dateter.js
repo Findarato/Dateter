@@ -278,6 +278,7 @@
 			if (dayTest) {
 				lsdth = localSettings.daysToHighlight[parseInt(localSettings.year)][parseInt(localSettings.month)];
 				jQuery.each(lsdth,function(i,item){
+					var dateClass = "date-"+parseInt(localSettings.year)+"-"+parseInt(localSettings.month)+"-"+i;
 					eventBox = jQuery("#eventBox"+i);//assign the selector once
 					if (localSettings.largeDisplay === true) {
 						eventBox.empty();
@@ -293,7 +294,7 @@
 								.css({overflow: "hidden"})
 								.append(
 									jQuery("<div/>",{"id":"cs-"+item2.id,"name":item2.name})
-										.addClass(localSettings.borderClass+" "+localSettings.borderRoundClass+"  dateterHighlight")
+										.addClass(localSettings.borderClass+" "+localSettings.borderRoundClass+"  dateterHighlight"+ " "+dateClass+" location-"+item2.location_id)
 										.css({"float":"left","textAlign": "left","height": localSettings.highLightSize,"overflow": "hidden","padding": "2px","margin": "2px","width": localSettings.highLightSize,"backgroundColor": localSettings.highLightColors[item2.location_id]})
 										.click(function(){
 											jQuery(".eventPopBoxCSS").replaceWith("");
