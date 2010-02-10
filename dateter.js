@@ -106,7 +106,6 @@
 		target.data("Settings",Settings);
 		jQuery.fn.dateter.init(target);
 	}
-	
 	jQuery.fn.keyInArray = function (key,looparray){for(v_key in looparray){if(key == looparray[v_key]){return v_key;}}}
 	/**
 	 * Initialization function.  This is where all of the stuff happens.
@@ -289,7 +288,7 @@
 						var totalDisplay = 0;
 						jQuery.each(item, function(i2, item2){
 							displayCnt++;
-							if (i2 > displayAmount-1) {totalDisplay++;return;	}
+							if (i2 > displayAmount-1) {totalDisplay++;return;}
 							eventBox
 								.css({overflow: "hidden"})
 								.append(
@@ -474,7 +473,7 @@
 			}
 			calHolder
 				.append(
-					calTable = jQuery('<table cellpadding="0" cellspacing="0" border="1"/>')
+					calTable = jQuery('<table cellpadding="0" cellspacing="0" border="0"/>')
 						.css({"width": localSettings.width,"height": correctedHeight})
 						.addClass(localSettings.borderClass)
 						.attr({"id": "calBox" + localSettings.uniqueName})
@@ -486,6 +485,7 @@
 					jQuery("#" + localSettings.uniqueName + "w" + a)
 						.append(
 							jQuery("<td/>")
+							.addClass(localSettings.borderClass)
 							.attr({"id":localSettings.uniqueName + 'd' + cnt })
 							.css({
 								"fontSize": "11px",
