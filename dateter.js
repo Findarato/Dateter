@@ -320,58 +320,9 @@
 										})
 								);
 						});
-						/*
-						if (displayCnt > displayAmount) {
-							if(localSettings.borderRound){round = localSettings.borderRoundClass;}else{round = "";}
-							eventBox
-								.append(
-									jQuery("<a/>")
-										.click(function(){
-											position = jQuery(this).parent().position();
-											jQuery("#eventBox"+i)
-												.append(
-													jQuery("<div/>")
-													.addClass(localSettings.borderClass+" "+localSettings.backgroundClass+" "+round)
-													.css({
-														textAlign:"left",
-														padding: "2px",
-														minWidth:jQuery(this).parent().innerWidth()-5,
-														minHeight:jQuery(this).parent().innerHeight()-5,
-														maxWidth:jQuery(this).parent().innerWidth()+20,
-														height:"auto",
-														position: "absolute",
-														top: position.top+2,
-														left: position.left+2
-													})
-													.attr({id: "eventPopBox"})
-													.html(
-														""
-													)
-													.append(
-														jQuery("<div/>")
-															.css({position: "absolute",	top: 0,right: 0})
-															.html(
-																jQuery("<div/>")
-																	.css({height:"10px",width:"10px"})
-																	.html("&nbsp;")
-																	.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+round)
-															)
-															.click(function(){
-																jQuery("#eventPopBox").replaceWith();//remove the box
-															})
-													)
-													
-												);
-											return false;//do not do the href
-										})
-										.css({fontSize: "9px",fontWeight: "bold"})
-										.html("&#43;" + (displayCnt - displayAmount) + " More"));
-						}
-						*/
 					}else {
 						smallDay = parseInt(i)+1;
-						jQuery("#" + localSettings.uniqueName + "d" + smallDay)
-							.css({"backgroundColor": localSettings.highLightColors[0]});
+						jQuery("#" + localSettings.uniqueName + "d" + smallDay,{"backgroundColor": localSettings.highLightColors[0]});
 					}
 				});
 			}else{ //there is no data for this month
@@ -408,39 +359,9 @@
 							.addClass(localSettings.shadeClass)
 							.append(
 								jQuery("<tr/>")
-									.append(
-										jQuery("<td/>")
-											.attr({"id":localSettings.uniqueName + "calBackMonth"})
-											.css({"text-align":"center", "width":"20px","cursor": "pointer"})
-											.html(
-												jQuery("<font/>")
-													.addClass(localSettings.fontColor)
-													.html("&laquo;")
-											)
-									)
-									.append(
-										jQuery('<td id="'+localSettings.uniqueName +'caltitle" style="width:auto;text-align:center"/>')
-											.css("font-size", "14px")
-											.html(
-												jQuery("<font/>")
-													.addClass(localSettings.fontColor)
-													.html(
-														Date
-															.today()
-															.set({month: parseInt(localSettings.month) - 1})
-															.toString("MMMM") + " " + localSettings.year)
-											)
-									)
-									.append(
-										jQuery("<td/>")
-											.attr({"id":localSettings.uniqueName + "calNextMonth"})
-											.css({"text-align":"center", "width":"20px","cursor": "pointer"})
-											.html(
-												jQuery("<font/>")
-													.addClass(localSettings.fontColor)
-													.html("&raquo;")
-											)
-									)
+									.append(jQuery("<td/>",{"id":localSettings.uniqueName + "calBackMonth","text-align":"center", "width":"20px","cursor": "pointer","html":jQuery("<font/>",{"class":localSettings.fontColor,"html":"&laquo;"})}))
+									.append(jQuery('<td/>',{"id":localSettings.uniqueName +"caltitle","width":"auto","text-align":"center","font-size": "14px","html":jQuery("<font/>",{"class":localSettings.fontColor,"html":Date.today().set({month: parseInt(localSettings.month) - 1}).toString("MMMM") + " " + localSettings.year})}))
+									.append(jQuery("<td/>",{"id":localSettings.uniqueName + "calNextMonth","text-align":"center", "width":"20px","cursor": "pointer","html":jQuery("<font/>",{"class":localSettings.fontColor,"html":"&raquo;;"})}))
 							)
 					);
 				jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1,target);
@@ -515,11 +436,7 @@
 												.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.fontColor)
 												.html(dayCnt)
 										)
-										.append(
-											clickArea2 = jQuery("<div/>")
-												.attr({id:"eventBox"+dayCnt})
-												.css({"borderTop":0,"borderLeft":0,"borderRight":0,"overFlow": "hidden","width": "100%","height": parseInt(realCellHeight - 15)})
-												.addClass("clickarea2 ")
+										.append(clickArea2 = jQuery("<div/>",{"id":"eventBox"+dayCnt,"borderTop":0,"borderLeft":0,"borderRight":0,"overFlow": "hidden","width": "100%","height": parseInt(realCellHeight - 15),"class":"clickarea2"})
 										)
 								);
 						}else { //small calendar
