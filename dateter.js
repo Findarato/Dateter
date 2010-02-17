@@ -307,8 +307,7 @@
 						}).append(
 						jQuery("<div/>", {
 							"id": "cs-" + item2.id,
-							"name": item2.name
-						}).addClass(localSettings.borderClass + " " + localSettings.borderRoundClass + "  dateterHighlight" + " " + dateClass + " location-" + item2.location_id).css({
+							"name": item2.name,
 							"float": "left",
 							"textAlign": "left",
 							"height": localSettings.highLightSize,
@@ -316,33 +315,36 @@
 							"padding": "2px",
 							"margin": "2px",
 							"width": localSettings.highLightSize,
-							"backgroundColor": localSettings.highLightColors[item2.location_id]
-						}).click(function () {
-							jQuery(".eventPopBoxCSS").replaceWith("");
-							position = jQuery(this).offset();
-							jQuery("body").append(
-							popBox = jQuery.fn.dateter.createPopupbox(localSettings.popUpBox, {
-								"title": item2.name,
-								"note": item2.comment,
-								"location": item2.location_name,
-								"color": localSettings.highLightColors[item2.location_id],
-								"startTime": item2.timeS,
-								"endTime": item2.timeE
-							}))
-							popBox.css({
-								"position": "absolute",
-								"top": position.top,
-								"left": position.left,
-								"zIndex": 500
-							});
-							eventBoxShift = jQuery("body").outerWidth() - (popBox.outerWidth() + position.left);
-							if (eventBoxShift < 0) {
-								eventBoxLeft = popBox.position().left;
-								Adjustment = parseInt(eventBoxLeft) + parseInt(eventBoxShift) - 5;
+							"backgroundColor": localSettings.highLightColors[item2.location_id],
+							"class": [localSettings.borderClass, localSettings.borderRoundClass, "dateterHighlight", dateClass, "location-" + item2.location_id],
+							"click": function () {
+								jQuery(".eventPopBoxCSS").replaceWith("");
+								position = jQuery(this).offset();
+								jQuery("body").append(
+								popBox = jQuery.fn.dateter.createPopupbox(localSettings.popUpBox, {
+									"title": item2.name,
+									"note": item2.comment,
+									"location": item2.location_name,
+									"color": localSettings.highLightColors[item2.location_id],
+									"startTime": item2.timeS,
+									"endTime": item2.timeE
+								}))
 								popBox.css({
-									"left": Adjustment
+									"position": "absolute",
+									"top": position.top,
+									"left": position.left,
+									"zIndex": 500
 								});
+								eventBoxShift = jQuery("body").outerWidth() - (popBox.outerWidth() + position.left);
+								if (eventBoxShift < 0) {
+									eventBoxLeft = popBox.position().left;
+									Adjustment = parseInt(eventBoxLeft) + parseInt(eventBoxShift) - 5;
+									popBox.css({
+										"left": Adjustment
+									});
+								}
 							}
+
 						}));
 					});
 				} else {
@@ -560,10 +562,10 @@
 							"class": "clickarea2"
 						})));
 					} else {
-						curDay.html(
-						jQuery("<div/>").css({
-							"height": realCellHeight
-						}).html("&nbsp;"));
+						curDay.html(jQuery("<div/>", {
+							"height": realCellHeight,
+							"html": "&nbsp;"
+						}));
 					}
 				}
 				cnt++;
