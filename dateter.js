@@ -9,7 +9,7 @@
  * 		{"1":
  * 			{"14":
  * 				[
- * 					{"location_name":"Small Meeting room","comment":"","name":"Lassie Come-Home Readers Group","id":"34","location_id":"1","timeS":"14:00","timeE":"15:00"}
+ * 					{"location_name":"Small Meeting room","comment":"","name":"Lassie Come-Home Readers Group",id:"34","location_id":"1","timeS":"14:00","timeE":"15:00"}
  * 				]
  * 			}
  * 		}
@@ -170,7 +170,7 @@
 
 				Shadow = jQuery("<div/>", {
 					"z-index": 999999,
-					"id": "Shadow",
+					id: "Shadow",
 					"display": "block",
 					"top": 0,
 					"left": 0,
@@ -195,7 +195,7 @@
 			jQuery("body").append(
 			calGlobal = jQuery("<div/>", {
 				"class": [target.data("Settings").borderClass, target.data("Settings").borderRoundClass, target.data("Settings").backgroundClass, target.data("Settings").shadeClass, "dateterPopup"],
-				"id": target.data("Settings").uniqueName
+				id: target.data("Settings").uniqueName
 			}).hide());
 			calGlobal.append(calBox = jQuery("<div/>"));
 			jQuery.fn.dateter.drawCalendar(calBox, target.data("Settings"), target);
@@ -262,7 +262,7 @@
 
 			}
 		}
-		popUp = $(popUp).attr("id", "eventPopBox").addClass("eventPopBoxCSS");
+		popUp = $(popUp).attr(id, "eventPopBox").addClass("eventPopBoxCSS");
 		popUp.find("#popUpCloseButton").click(function () {
 			jQuery(".eventPopBoxCSS").replaceWith("");
 			jQuery("#eventPopBox").replaceWith("");
@@ -306,8 +306,9 @@
 							overflow: "hidden"
 						}).append(
 						jQuery("<div/>", {
-							"id": "cs-" + item2.id,
-							"name": item2.name,
+							id: "cs-" + item2.id,
+							name: item2.name,
+							css:{
 							"float": "left",
 							"textAlign": "left",
 							"height": localSettings.highLightSize,
@@ -315,7 +316,8 @@
 							"padding": "2px",
 							"margin": "2px",
 							"width": localSettings.highLightSize,
-							"backgroundColor": localSettings.highLightColors[item2.location_id],
+							"backgroundColor": localSettings.highLightColors[item2.location_id]
+							},
 							"class": [localSettings.borderClass, localSettings.borderRoundClass, "dateterHighlight", dateClass, "location-" + item2.location_id],
 							click: function () {
 								jQuery(".eventPopBoxCSS").replaceWith("");
@@ -350,7 +352,7 @@
 				} else {
 					smallDay = parseInt(i) + 1;
 					jQuery("#" + localSettings.uniqueName + "d" + smallDay, {
-						"backgroundColor": localSettings.highLightColors[0]
+						css:{"backgroundColor": localSettings.highLightColors[0]}
 					});
 				}
 			});
@@ -381,7 +383,9 @@
 		var calTable = "";
 		if (localSettings.displayHeader) {
 			calHeader = jQuery("<div/>", {
+				css:{
 				"textAlign": "center"
+				}
 			}).html(
 			jQuery("<table cellpadding=\"0\" cellspacing=\"0\"/>", {
 				"height": "20px",
@@ -389,35 +393,42 @@
 				"class": localSettings.shadeClass
 			}).html(
 			jQuery("<tr/>").append(jQuery("<td/>", {
-				"id": localSettings.uniqueName + "calBackMonth",
+				id: localSettings.uniqueName + "calBackMonth",
+				css:{
 				"text-align": "center",
 				"width": "20px",
-				"cursor": "pointer",
-				"html": jQuery("<font/>", {
+				"cursor": "pointer"
+				},
+				html: jQuery("<font/>", {
 					"class": localSettings.fontColor,
-					"html": "&laquo;"
+					html: "&laquo;"
 				})
 			})).append(jQuery('<td/>', {
-				"id": localSettings.uniqueName + "caltitle",
+				id: localSettings.uniqueName + "caltitle",
+				css:{
 				"width": "auto",
 				"text-align": "center",
-				"font-size": "14px",
-				"html": jQuery("<font/>", {
+				"font-size": "14px"
+				},
+				html: jQuery("<font/>", {
 					"class": localSettings.fontColor,
-					"html": Date.today().set({
+					html: Date.today().set({
 						month: parseInt(localSettings.month) - 1
 					}).toString("MMMM") + " " + localSettings.year
 				})
 			})).append(jQuery("<td/>", {
-				"id": localSettings.uniqueName + "calNextMonth",
+				id: localSettings.uniqueName + "calNextMonth",
+				css:{
 				"text-align": "center",
 				"width": "20px",
-				"cursor": "pointer",
-				"html": jQuery("<font/>", {
+				"cursor": "pointer"
+				},
+				html: jQuery("<font/>", {
 					"class": localSettings.fontColor,
-					"html": "&raquo;;"
+					html: "&raquo;;"
 				})
 			}))));
+			alert("!");
 			jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1, target);
 			jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1, target);
 			calHolder.html(calHeader);
@@ -448,22 +459,24 @@
 			"width": localSettings.width,
 			"height": correctedHeight
 		}).addClass(localSettings.borderClass).attr({
-			"id": "calBox" + localSettings.uniqueName
+			id: "calBox" + localSettings.uniqueName
 		}));
 		calTable.empty();
 		for (var a = 0; a < 6; a++) { //Y
 			calTable.append(jQuery("<tr/>", {
-				"id": localSettings.uniqueName + 'w' + a
+				id: localSettings.uniqueName + 'w' + a
 			}));
 			for (var b = 0; b < 7; b++) { //X
 				jQuery("#" + localSettings.uniqueName + "w" + a).append(
 				jQuery("<td/>", {
+					css:{
 					"fontSize": "11px",
 					"textAlign": "center",
 					"width": localSettings.cellWidth,
-					"height": localSettings.cellHeight,
+					"height": localSettings.cellHeight
+					},
 					"class": localSettings.borderClass,
-					"id": localSettings.uniqueName + 'd' + cnt
+					id: localSettings.uniqueName + 'd' + cnt
 				}));
 				var a_Pass = new Array();
 				a_Pass[0] = localSettings.year == parseInt(Date.today().toString("yyyy"));
@@ -477,27 +490,31 @@
 					if (localSettings.largeDisplay === true) {
 						curDay.html(
 						jQuery("<div/>", {
-							"id": "dayBox" + dayCnt,
+							id: "dayBox" + dayCnt,
 							"overflow": "hidden",
 							"height": "100%",
 							"width": "100%",
-							"html": clickArea = jQuery("<div/>", {
+							html: clickArea = jQuery("<div/>", {
+								css:{
 								"borderTop": 0,
 								"borderLeft": 0,
 								"borderRight": 0,
 								"width": "100%",
-								"height": "15px",
+								"height": "15px"
+								},
 								"class": [localSettings.borderClass, localSettings.shadeClass, localSettings.fontColor],
-								"html": dayCnt
+								html: dayCnt
 							})
 						}).append(clickArea2 = jQuery("<div/>", {
-							"id": "eventBox" + dayCnt,
+							id: "eventBox" + dayCnt,
+							css:{
 							"borderTop": 0,
 							"borderLeft": 0,
 							"borderRight": 0,
 							"overFlow": "hidden",
 							"width": "100%",
-							"height": parseInt(realCellHeight - 15),
+							"height": parseInt(realCellHeight - 15)
+							},
 							"class": "clickarea2"
 						})));
 					} else { //small calendar
@@ -535,36 +552,42 @@
 					curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
 					if (localSettings.largeDisplay === true) {
 						curDay.html(jQuery("<div/>", {
-							"id": "dayBox" + dayCnt,
+							id: "dayBox" + dayCnt,
+							css:{
 							"overflow": "hidden",
 							"height": "100%",
 							"width": "100%"
+							}
 						}).html(
 						clickArea = jQuery("<div/>", {
-							"html": jQuery("<font/>", {
+							html: jQuery("<font/>", {
 								"class": localSettings.fontColor,
-								"html": "&nbsp;"
+								html: "&nbsp;"
 							}),
+							css:{
 							"borderTop": 0,
 							"borderLeft": 0,
 							"borderRight": 0,
 							"width": "100%",
 							"height": "16px"
+							}
 						})).append(
 						clickArea2 = jQuery("<div/>", {
-							"id": "eventBox" + dayCnt,
+							id: "eventBox" + dayCnt,
+							css:{
 							"borderTop": 0,
 							"borderLeft": 0,
 							"borderRight": 0,
 							"overFlow": "hidden",
 							"width": "100%",
-							"height": parseInt(realCellHeight - 15),
+							"height": parseInt(realCellHeight - 15)
+							},
 							"class": "clickarea2"
 						})));
 					} else {
 						curDay.html(jQuery("<div/>", {
-							"height": realCellHeight,
-							"html": "&nbsp;"
+							css:{"height": realCellHeight},
+							html: "&nbsp;"
 						}));
 					}
 				}
