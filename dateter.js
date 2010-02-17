@@ -350,14 +350,10 @@
 			calHolder.data("Settings", localSettings);
 			var calTable = "";
 			if (localSettings.displayHeader) {
-				calHolder
-					.css({"textAlign":"center"})
-					.empty()
+				calHeader = jQuery("<div/>",{"textAlign":"center"})
 					.html(
-						jQuery("<table cellpadding=\"0\" cellspacing=\"0\"/>")
-							.css({"height":"20px","width":"100%"})
-							.addClass(localSettings.shadeClass)
-							.append(
+						jQuery("<table cellpadding=\"0\" cellspacing=\"0\"/>",{"height":"20px","width":"100%","class":localSettings.shadeClass})
+							.html(
 								jQuery("<tr/>")
 									.append(jQuery("<td/>",{"id":localSettings.uniqueName + "calBackMonth","text-align":"center", "width":"20px","cursor": "pointer","html":jQuery("<font/>",{"class":localSettings.fontColor,"html":"&laquo;"})}))
 									.append(jQuery('<td/>',{"id":localSettings.uniqueName +"caltitle","width":"auto","text-align":"center","font-size": "14px","html":jQuery("<font/>",{"class":localSettings.fontColor,"html":Date.today().set({month: parseInt(localSettings.month) - 1}).toString("MMMM") + " " + localSettings.year})}))
@@ -366,9 +362,9 @@
 					);
 				jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1,target);
 				jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1,target);
-				
+				calHolder.html(calHeader);
 			} else {
-				calHolder.empty().html(jQuery('<table/>'));
+				calHolder.html(jQuery('<table/>'));
 				if (localSettings.headerSelectors.title != -1) {
 					localSettings.headerSelectors.title
 						.html(
@@ -401,19 +397,18 @@
 				);
 			calTable.empty();
 			for (var a = 0; a < 6; a++) {//Y
-				calTable.append(jQuery('<tr id="' + localSettings.uniqueName + 'w' + a + '"/>'));
+				calTable.append(jQuery("<tr/>",{"id":localSettings.uniqueName + 'w' + a}));
 				for (var b = 0; b < 7; b++) {//X
 					jQuery("#" + localSettings.uniqueName + "w" + a)
 						.append(
-							jQuery("<td/>")
-							.addClass(localSettings.borderClass)
-							.attr({"id":localSettings.uniqueName + 'd' + cnt })
-							.css({
+							jQuery("<td/>",{
 								"fontSize": "11px",
 								"textAlign": "center",
 								"width": localSettings.cellWidth,
-								"height": localSettings.cellHeight
-							})
+								"height": localSettings.cellHeight,
+								"class":localSettings.borderClass,
+								"id":localSettings.uniqueName + 'd' + cnt
+								})
 						);
 					var a_Pass = new Array();
 					a_Pass[0] = localSettings.year == parseInt(Date.today().toString("yyyy"));
@@ -427,15 +422,13 @@
 						if (localSettings.largeDisplay === true) {
 							curDay
 								.html(
-									jQuery("<div/>")
-										.attr({"id":"dayBox"+dayCnt})
-										.css({"overflow": "hidden","height": "100%","width": "100%"})
-										.html(
-											clickArea = jQuery("<div/>")
-												.css({"borderTop":0,"borderLeft":0,"borderRight":0,"width": "100%","height": "15px"})
-												.addClass(localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.fontColor)
-												.html(dayCnt)
-										)
+									jQuery("<div/>",{"id":"dayBox"+dayCnt,"overflow": "hidden","height": "100%","width": "100%",
+											"html":	clickArea = jQuery("<div/>",{
+												"borderTop":0,"borderLeft":0,"borderRight":0,"width": "100%","height": "15px",
+												"class":[localSettings.borderClass,localSettings.shadeClass,localSettings.fontColor],
+												"html":dayCnt
+												})
+										})
 										.append(clickArea2 = jQuery("<div/>",{"id":"eventBox"+dayCnt,"borderTop":0,"borderLeft":0,"borderRight":0,"overFlow": "hidden","width": "100%","height": parseInt(realCellHeight - 15),"class":"clickarea2"})
 										)
 								);
@@ -473,24 +466,24 @@
 						curDay = jQuery("#" + localSettings.uniqueName + "d" + cnt)
 						if (localSettings.largeDisplay === true) {
 							curDay
-								.html(jQuery("<div/>")
-								.attr({"id": "dayBox" + dayCnt})
-								.css({"overflow": "hidden","height": "100%","width": "100%"})
+								.html(jQuery("<div/>",{"id": "dayBox" + dayCnt,"overflow": "hidden","height": "100%","width": "100%"})
 								.html(
-									clickArea = jQuery("<div/>")
-									.css({"borderTop": 0,"borderLeft": 0,"borderRight": 0,"width": "100%","height": "16px"})
-									.addClass()
-									.html(
-										jQuery("<font/>")
-											.addClass(localSettings.fontColor)
-											.html("&nbsp;")
-										)
+									clickArea = jQuery("<div/>",{
+										"html":jQuery("<font/>",{"class": localSettings.fontColor,"html": "&nbsp;"}),
+										"borderTop": 0,"borderLeft": 0,"borderRight": 0,"width": "100%","height": "16px"
+									})
 								)
 								.append(
-									clickArea2 = jQuery("<div/>")
-									.attr({	"id": "eventBox" + dayCnt})
-									.css({"borderTop": 0,"borderLeft": 0,"borderRight": 0,"overFlow": "hidden",	"width": "100%","height": parseInt(realCellHeight - 15)})
-									.addClass("clickarea2 ")
+									clickArea2 = jQuery("<div/>",{
+										"id": "eventBox" + dayCnt,
+										"borderTop": 0,
+										"borderLeft": 0,
+										"borderRight": 0,
+										"overFlow": "hidden",
+										"width": "100%",
+										"height": parseInt(realCellHeight - 15),
+										"class":"clickarea2"
+									})
 								)
 							);
 						}else{
