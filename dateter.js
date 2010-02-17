@@ -187,20 +187,18 @@
 				}).hide();
 				jQuery("body").append(Shadow);
 				jQuery(".dateterPopup").hide();
-				jQuery("#" + target.data("Settings").uniqueName, {
-					css: {
-						"z-index": "1000000"
-					}
-				}).show();
+				jQuery("#" + target.data("Settings").uniqueName).css("z-index", 1000000).show();
 				jQuery("#Shadow").show();
 
 			});
 			//Add a shadow box
 			jQuery("body").append(
 			calGlobal = jQuery("<div/>", {
-				"class": target.data("Settings").borderClass+" "+target.data("Settings").borderRoundClass+" "+target.data("Settings").backgroundClass+" "+target.data("Settings").shadeClass+" "+"dateterPopup",
-				id: target.data("Settings").uniqueName
-			}).hide());
+				id: target.data("Settings").uniqueName,
+				"class":target.data("Settings").borderClass+" "+target.data("Settings").borderRoundClass+" "+target.data("Settings").backgroundClass+" "+target.data("Settings").shadeClass+" "+"dateterPopup"
+			})
+			.hide()
+			);
 			calGlobal.append(calBox = jQuery("<div/>"));
 			jQuery.fn.dateter.drawCalendar(calBox, target.data("Settings"), target);
 			heightAdjust = jQuery(target).height();
@@ -389,7 +387,8 @@
 		var calTable = "";
 		if (localSettings.displayHeader) {
 			calHolder.html(
-			jQuery("<table/>", {css: {"height": "20px","width": "100%"},attr:{"cellpadding":0,"cellspacing":0}	})
+			jQuery("<table/>", {css: {"height": "20px","width": "100%"}	})
+				.attr({"cellpadding":0,"cellspacing":0})
 				.addClass(localSettings.shadeClass)
 				.html(
 					jQuery("<tr/>")
@@ -423,7 +422,6 @@
 				);
 			jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1, target);
 			jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1, target);
-			//calHolder.html(calHeader);
 		} else {
 			calHolder.html(jQuery('<table/>'));
 			if (localSettings.headerSelectors.title != -1) {
@@ -447,7 +445,7 @@
 			correctedHeight = localSettings.height;
 		}
 		calHolder.append(
-		calTable = jQuery('<table cellpadding="0" cellspacing="0" border="0"/>').css({
+		calTable = jQuery("<table/>").attr({"cellpadding":0,"cellspacing":0,"border":0}).css({
 			"width": localSettings.width,
 			"height": correctedHeight
 		}).addClass(localSettings.borderClass).attr({
@@ -494,9 +492,9 @@
 									"borderLeft": 0,
 									"borderRight": 0,
 									"width": "100%",
+									"cursor":"pointer",
 									"height": "15px"
 								},
-								//"class": [localSettings.borderClass, localSettings.shadeClass, localSettings.fontColor],
 								"class": localSettings.borderClass+" "+localSettings.shadeClass+" "+localSettings.fontColor,
 								html: dayCnt
 							})
@@ -507,6 +505,7 @@
 								"borderLeft": 0,
 								"borderRight": 0,
 								"overFlow": "hidden",
+								"cursor":"pointer",
 								"width": "100%",
 								"height": parseInt(realCellHeight - 15)
 							},
@@ -514,7 +513,8 @@
 						})));
 					} else { //small calendar
 						clickArea = curDay.css({
-							"height": realCellHeight
+							"height": realCellHeight,
+							"cursor":"pointer"
 						}).addClass(localSettings.fontColor).html(dayCnt)
 
 					}
