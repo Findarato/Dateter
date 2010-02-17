@@ -1,8 +1,8 @@
 /**
  * Requires datejs
- * @author Joseph Harry, a.k.a., Mr. Roboto Findarato
- * @version 0.5.0
- * @copyright August 5, 2009 
+ * @author Joseph Harry, a.k.a., Mr. Roboto Findarato StartedAugust 5, 2009
+ * @version 1.5.0
+ * 
  * 
  * The days to highlight object requires a json object in the following order
  * {"2010":
