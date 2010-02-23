@@ -1,7 +1,9 @@
 /**
  * Requires datejs
  * @author Joseph Harry, a.k.a., Mr. Roboto Findarato StartedAugust 5, 2009
- * @version 1.5.0
+ * @version 2.0.0 CSS 3 version
+ * 
+ * 
  * 
  * 
  * The days to highlight object requires a json object in the following order
