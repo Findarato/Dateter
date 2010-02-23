@@ -385,19 +385,23 @@
 		var calTable = "";
 		if (localSettings.displayHeader) {
 			calHolder.html(
-			jQuery("<table/>", {
+			jQuery("<div/>", {
 				css: {
+					"box-sizing":"border-box",
+					"-moz-box-sizing":"border-box",
+					"-webkit-box-sizing":"border-box",
+					"display":"table",
 					"height": "20px",
 					"width": "100%"
 				}
-			}).attr({
-				"cellpadding": 0,
-				"cellspacing": 0
 			}).addClass(localSettings.shadeClass).html(
-			jQuery("<tr/>").html(
-			jQuery("<td/>", {
+			jQuery("<div/>", {
 				id: localSettings.uniqueName + "calBackMonth",
 				css: {
+					"box-sizing":"border-box",
+					"-moz-box-sizing":"border-box",
+					"-webkit-box-sizing":"border-box",
+					"display":"table-cell",
 					"text-align": "center",
 					"width": "20px",
 					"cursor": "pointer"
@@ -406,9 +410,13 @@
 					html: "&laquo;"
 				})
 			})).append(
-			jQuery('<td/>', {
+			jQuery('<div/>', {
 				id: localSettings.uniqueName + "caltitle",
 				css: {
+					"box-sizing":"border-box",
+					"-moz-box-sizing":"border-box",
+					"-webkit-box-sizing":"border-box",
+					"display":"table-cell",
 					"width": "auto",
 					"text-align": "center",
 					"font-size": "14px"
@@ -419,9 +427,13 @@
 					}).toString("MMMM") + " " + localSettings.year
 				}).addClass(localSettings.fontColor)
 			})).append(
-			jQuery("<td/>", {
+			jQuery("<div/>", {
 				id: localSettings.uniqueName + "calNextMonth",
 				css: {
+					"box-sizing":"border-box",
+					"-moz-box-sizing":"border-box",
+					"-webkit-box-sizing":"border-box",
+					"display":"table-cell",
 					"text-align": "center",
 					"width": "20px",
 					"cursor": "pointer"
@@ -429,11 +441,15 @@
 				html: jQuery("<font/>", {
 					html: "&raquo;"
 				}).addClass(localSettings.fontColor)
-			}))));
+			})));
 			jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calBackMonth"), localSettings, calHolder, -1, target);
 			jQuery.fn.dateter.moveMonth(jQuery("#" + localSettings.uniqueName + "calNextMonth"), localSettings, calHolder, 1, target);
 		} else {
-			calHolder.html(jQuery('<table/>'));
+			calHolder.html(
+				$("<div/>",{
+					css:{"display":"table","width":"100%"}
+				})
+			);
 			if (localSettings.headerSelectors.title != -1) {
 				localSettings.headerSelectors.title.html(
 				Date.today().set({
@@ -445,6 +461,7 @@
 		var dayCnt = 0;
 		var monthStart = false;
 		var correctedHeight = 0;
+		
 		if (localSettings.displayHeader) {
 			realCellHeight = parseInt(parseInt(localSettings.height) - 20) / 6;
 			realCellHeight--; //hopefuly fix the 6 row scroll bar
@@ -455,25 +472,30 @@
 			correctedHeight = localSettings.height;
 		}
 		calHolder.append(
-		calTable = jQuery("<table/>").attr({
-			"cellpadding": 0,
-			"cellspacing": 0,
-			"border": 0
-		}).css({
-			"width": localSettings.width,
-			"height": correctedHeight
-		}).addClass(localSettings.borderClass).attr({
-			id: "calBox" + localSettings.uniqueName
-		}));
+		calTable = jQuery("<div/>",{
+			id: "calBox" + localSettings.uniqueName,
+			css:{
+				"display":"table",
+				"width": localSettings.width,
+				"height": correctedHeight
+				}
+			}
+		)
+			.addClass(localSettings.borderClass));
 		calTable.empty();
 		for (var a = 0; a < 6; a++) { //Y
-			calTable.append(jQuery("<tr/>", {
-				id: localSettings.uniqueName + 'w' + a
+			calTable.append(jQuery("<div/>", {
+				id: localSettings.uniqueName + 'w' + a,
+				css:{"display":"table-row"}
 			}));
 			for (var b = 0; b < 7; b++) { //X
 				jQuery("#" + localSettings.uniqueName + "w" + a).append(
-				jQuery("<td/>", {
+				jQuery("<div/>", {
 					css: {
+						"box-sizing":"border-box",
+						"-moz-box-sizing":"border-box",
+						"-webkit-box-sizing":"border-box",						
+						"display":"table-cell",
 						"fontSize": "11px",
 						"textAlign": "center",
 						"width": localSettings.cellWidth,
