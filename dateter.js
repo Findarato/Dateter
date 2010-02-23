@@ -149,7 +149,7 @@
 				settingsHold.width = "100%";
 				target.data("Settings", settingsHold);
 				if (target.data("Settings").headerSelectors.title != -1) {
-					target.empty().html(jQuery("<table/>"));
+					target.empty().html(jQuery("<div/>"));
 					if (target.data("Settings").headerSelectors.next != -1) {
 						jQuery.fn.dateter.moveMonth(
 						target.data("Settings").headerSelectors.next, target.data("Settings"), target, 1);
@@ -491,7 +491,8 @@
 				css:{"display":"table-row"}
 			}));
 			for (var b = 0; b < 7; b++) { //X
-				jQuery("#" + localSettings.uniqueName + "w" + a).append(
+				jQuery("#" + localSettings.uniqueName + "w" + a)
+				.append(
 				jQuery("<div/>", {
 					css: {
 						"box-sizing":"border-box",
@@ -500,8 +501,12 @@
 						"display":"table-cell",
 						"fontSize": "11px",
 						"textAlign": "center",
+//						"width": localSettings.cellWidth,
+	//					"height": localSettings.cellHeight
+						
 						"width": localSettings.cellWidth,
 						"height": localSettings.cellHeight
+
 					},
 					"class": localSettings.borderClass,
 					id: localSettings.uniqueName + 'd' + cnt
@@ -520,12 +525,20 @@
 						jQuery("<div/>", {
 							id: "dayBox" + dayCnt,
 							css: {
+								"display":"table",
+								"box-sizing":"border-box",
+								"-moz-box-sizing":"border-box",
+								"-webkit-box-sizing":"border-box",
 								"overflow": "hidden",
 								"height": "100%",
 								"width": "100%"
 							},
 							html: clickArea = jQuery("<div/>", {
 								css: {
+									"display":"table-row",
+									"box-sizing":"border-box",
+									"-moz-box-sizing":"border-box",
+									"-webkit-box-sizing":"border-box",
 									"borderTop": 0,
 									"borderLeft": 0,
 									"borderRight": 0,
@@ -539,13 +552,15 @@
 						}).append(clickArea2 = jQuery("<div/>", {
 							id: "eventBox" + dayCnt,
 							css: {
+								"display":"table-row",
 								"borderTop": 0,
 								"borderLeft": 0,
 								"borderRight": 0,
 								"overFlow": "hidden",
 								"cursor": "pointer",
 								"width": "100%",
-								"height": parseInt(realCellHeight - 15)
+								//"height": parseInt(realCellHeight - 15)
+								"height": "auto"
 							},
 							"class": "clickarea2"
 						})));
