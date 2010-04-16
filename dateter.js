@@ -463,16 +463,15 @@
 		var dayCnt = 0;
 		var monthStart = false;
 		var correctedHeight = 0;
-		
 		if (localSettings.displayHeader) {
-			realCellHeight = parseInt(parseInt(localSettings.height) - 20) / 6;
-			realCellHeight--; //hopefuly fix the 6 row scroll bar
-			correctedHeight = localSettings.height - 20;
-		} else {
-			realCellHeight = parseInt(localSettings.height) / 6;
-			realCellHeight--; //hopefuly fix the 6 row scroll bar
-			correctedHeight = localSettings.height;
-		}
+			var headerAdjust = 20;
+		}else {var headerAdjust = 0;}
+		
+		realCellHeight = parseInt(parseInt(localSettings.height) - headerAdjust) / 6;
+		realCellHeight--; //hopefuly fix the 6 row scroll bar
+		correctedHeight = localSettings.height - headerAdjust;
+		
+		
 		calHolder.append(
 		calTable = jQuery("<div/>",{
 			id: "calBox" + localSettings.uniqueName,
@@ -535,7 +534,7 @@
 							},
 							html: clickArea = jQuery("<div/>", {
 								css: {
-									"display":"table-row",
+//									"display":"table-row",
 									"box-sizing":"border-box",
 									"-moz-box-sizing":"border-box",
 									"-webkit-box-sizing":"border-box",
@@ -552,23 +551,48 @@
 						}).append(clickArea2 = jQuery("<div/>", {
 							id: "eventBox" + dayCnt,
 							css: {
-								"display":"table-row",
+								//"display":"table-row",
 								"borderTop": 0,
 								"borderLeft": 0,
 								"borderRight": 0,
 								"overFlow": "hidden",
 								"cursor": "pointer",
 								"width": "100%",
-								//"height": parseInt(realCellHeight - 15)
-								"height": "auto"
+								"height": parseInt(realCellHeight - 15)
 							},
 							"class": "clickarea2"
 						})));
 					} else { //small calendar
-						clickArea = curDay.css({
-							"height": realCellHeight,
-							"cursor": "pointer"
-						}).addClass(localSettings.fontColor).html(dayCnt)
+					curDay.html(
+						jQuery("<div/>", {
+							id: "dayBox" + dayCnt,
+							css: {
+								"display":"table",
+								"box-sizing":"border-box",
+								"-moz-box-sizing":"border-box",
+								"-webkit-box-sizing":"border-box",
+								"overflow": "hidden",
+								"height": "100%",
+								"width": "100%"
+							},
+							html: clickArea = jQuery("<div/>", {
+								css: {
+//									"display":"table-row",
+									"box-sizing":"border-box",
+									"-moz-box-sizing":"border-box",
+									"-webkit-box-sizing":"border-box",
+									"borderTop": 0,
+									"borderLeft": 0,
+									"borderRight": 0,
+									"width": "100%",
+									"cursor": "pointer",
+									"height": "15px"
+								},
+								"class": localSettings.borderClass + " " + localSettings.shadeClass + " " + localSettings.fontColor,
+								html: dayCnt
+							})
+						})
+					);
 
 					}
 					if (localSettings.pastDayShades) {
